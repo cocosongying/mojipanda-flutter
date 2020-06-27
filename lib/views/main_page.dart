@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mojipanda/common/component_index.dart';
 import 'home_page.dart';
 import 'setting_page.dart';
 
@@ -14,20 +15,20 @@ class _MainPageState extends State<MainPage>
   List<Widget> _list = List();
   int _currentIndex = 0;
   List tabData = [
-    {'text': '首页', 'icon': Icon(Icons.home)},
-    {'text': '我的', 'icon': Icon(Icons.account_circle)},
+    {'text': Ids.titleHome, 'icon': Icon(Icons.home)},
+    {'text': Ids.titleSetting, 'icon': Icon(Icons.account_circle)},
   ];
-  List<BottomNavigationBarItem> _myTabs = [];
+  // List<BottomNavigationBarItem> _myTabs = [];
   var _pageController = new PageController(initialPage: 0);
 
   @override
   void initState() {
     super.initState();
     _list..add(HomePage())..add(SettingPage());
-    for (int i = 0; i < tabData.length; i++) {
-      _myTabs.add(BottomNavigationBarItem(
-          icon: tabData[i]['icon'], title: Text(tabData[i]['text'])));
-    }
+    // for (int i = 0; i < tabData.length; i++) {
+    //   _myTabs.add(BottomNavigationBarItem(
+    //       icon: tabData[i]['icon'], title: Text( tabData[i]['text'])));
+    // }
   }
 
   @override
@@ -48,7 +49,16 @@ class _MainPageState extends State<MainPage>
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-          items: _myTabs, currentIndex: _currentIndex, onTap: _itemTapped),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text(IntlUtil.getString(context, Ids.titleHome)),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              title: Text(IntlUtil.getString(context, Ids.titleSetting)),
+            ),
+          ], currentIndex: _currentIndex, onTap: _itemTapped),
     );
   }
 

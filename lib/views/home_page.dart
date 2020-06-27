@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mojipanda/common/component_index.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,9 +12,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text('首页')),
-      body:
-          new Center(child: Icon(Icons.home, size: 120.0, color: Colors.blue)),
+      appBar: new AppBar(
+        title: new Text(IntlUtil.getString(context, Ids.titleHome)),
+      ),
+      body: new Center(
+          child: Icon(
+        Icons.home,
+        size: 120.0,
+        color: Theme.of(context).accentColor,
+      )),
     );
   }
 }
