@@ -14,10 +14,10 @@ class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   List<Widget> _list = List();
   int _currentIndex = 0;
-  List tabData = [
-    {'text': Ids.titleHome, 'icon': Icon(Icons.home)},
-    {'text': Ids.titleSetting, 'icon': Icon(Icons.account_circle)},
-  ];
+  // List tabData = [
+  //   {'text': Ids.titleHome, 'icon': Icon(Icons.home)},
+  //   {'text': Ids.titleSetting, 'icon': Icon(Icons.account_circle)},
+  // ];
   // List<BottomNavigationBarItem> _myTabs = [];
   var _pageController = new PageController(initialPage: 0);
 
@@ -48,17 +48,16 @@ class _MainPageState extends State<MainPage>
           return _list[_currentIndex];
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text(IntlUtil.getString(context, Ids.titleHome)),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text(IntlUtil.getString(context, Ids.titleSetting)),
-            ),
-          ], currentIndex: _currentIndex, onTap: _itemTapped),
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          title: Text(IntlUtil.getString(context, Ids.titleHome)),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle),
+          title: Text(IntlUtil.getString(context, Ids.titleSetting)),
+        ),
+      ], currentIndex: _currentIndex, onTap: _itemTapped),
     );
   }
 
