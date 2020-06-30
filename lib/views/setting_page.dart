@@ -12,18 +12,54 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  
   @override
   Widget build(BuildContext context) {
     final ApplicationBloc bloc = BlocProvider.of<ApplicationBloc>(context);
     LanguageModel languageModel =
-      SpUtil.getObj(Constant.keyLanguage, (v) => LanguageModel.fromJson(v));
+        SpUtil.getObj(Constant.keyLanguage, (v) => LanguageModel.fromJson(v));
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(IntlUtil.getString(context, Ids.titleSetting)),
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: AppBar(),
       ),
       body: new ListView(
         children: <Widget>[
+          new Container(
+            height: 210,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: new NetworkImage(
+                        'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg'),
+                    fit: BoxFit.cover)),
+            child: new Column(children: <Widget>[
+              Container(
+                  margin: EdgeInsets.only(top: 25),
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                          child: Container(
+                              alignment: Alignment.center,
+                              child: new CircleAvatar(
+                                  backgroundImage: new NetworkImage(
+                                      'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
+                                  radius: 33.0)))
+                    ],
+                  )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Text(
+                      "磨叽熊猫",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    ),
+                  )
+                ],
+              )
+            ]),
+          ),
           new ExpansionTile(
             title: new Row(
               children: <Widget>[
@@ -58,34 +94,36 @@ class _SettingPageState extends State<SettingPage> {
             ],
           ),
           new ListTile(
-              title: new Row(children: <Widget>[
-                Icon(
-                  Icons.language,
-                  color: Colours.gray_66,
+            title: new Row(children: <Widget>[
+              Icon(
+                Icons.language,
+                color: Colours.gray_66,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Text(
+                  IntlUtil.getString(context, Ids.titleLanguage),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    IntlUtil.getString(context, Ids.titleLanguage),
-                  ),
+              ),
+            ]),
+            trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              Text(
+                languageModel == null
+                    ? IntlUtil.getString(context, Ids.languageAuto)
+                    : IntlUtil.getString(context, languageModel.titleId,
+                        languageCode: 'zh', countryCode: 'CH'),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colours.gray_99,
                 ),
-              ]),
-              trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Text(
-                  languageModel == null
-                      ? IntlUtil.getString(context, Ids.languageAuto)
-                      : IntlUtil.getString(context, languageModel.titleId,
-                          languageCode: 'zh', countryCode: 'CH'),
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colours.gray_99,
-                  ),
-                ),
-                Icon(Icons.keyboard_arrow_right)
-              ]),
-              onTap: () {
-                NavigatorUtil.pushPage(context, LanguagePage(), pageName: Ids.titleLanguage);
-              },)
+              ),
+              Icon(Icons.keyboard_arrow_right)
+            ]),
+            onTap: () {
+              NavigatorUtil.pushPage(context, LanguagePage(),
+                  pageName: Ids.titleLanguage);
+            },
+          )
         ],
       ),
     );
