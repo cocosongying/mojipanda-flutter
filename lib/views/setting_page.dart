@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mojipanda/common/component_index.dart';
 import 'package:mojipanda/models/language_model.dart';
 import 'package:mojipanda/views/language_page.dart';
+import 'package:mojipanda/views/about_page.dart';
 import 'package:mojipanda/utils/navigator_util.dart';
 
 class SettingPage extends StatefulWidget {
@@ -123,7 +124,31 @@ class _SettingPageState extends State<SettingPage> {
               NavigatorUtil.pushPage(context, LanguagePage(),
                   pageName: Ids.titleLanguage);
             },
-          )
+          ),
+          new ListTile(
+            title: new Row(children: <Widget>[
+              Icon(
+                Icons.info_outline,
+                color: Colours.gray_66,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Text(
+                  IntlUtil.getString(context, Ids.titleAbout),
+                ),
+              ),
+            ]),
+            trailing: new Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.keyboard_arrow_right),
+              ]
+            ),
+            onTap: () {
+              NavigatorUtil.pushPage(context, AboutPage(),
+                  pageName: Ids.titleAbout);
+            },
+          ),
         ],
       ),
     );

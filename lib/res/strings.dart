@@ -4,6 +4,7 @@ class Ids {
   static const String titleBlog = 'title_blog';
   static const String titleTheme = 'title_theme';
   static const String titleLanguage = 'title_language';
+  static const String titleAbout = 'title_about';
   static const String languageAuto = 'language_auto';
   static const String languageZH = 'language_zh';
   static const String languageEN = 'language_en';
@@ -19,6 +20,7 @@ Map<String, Map<String, String>> localizedSimpleValues = {
     Ids.titleLanguage: 'Language',
     Ids.languageAuto: 'Auto',
     Ids.save: 'Save',
+    Ids.titleAbout: 'About',
   },
   'zh': {
     Ids.titleHome: '主页',
@@ -30,5 +32,6 @@ Map<String, Map<String, String>> localizedSimpleValues = {
     Ids.languageZH: '简体中文',
     Ids.languageEN: 'English',
     Ids.save: '保存',
+    Ids.titleAbout: '关于',
   }
 };

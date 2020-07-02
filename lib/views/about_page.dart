@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:mojipanda/common/component_index.dart';
+
+class AboutPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _AboutPageState();
+  }
+}
+
+class _AboutPageState extends State<AboutPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: new Text(IntlUtil.getString(context, Ids.titleAbout),
+            style: new TextStyle(fontSize: 16.0)),
+      ),
+      body: ListView(
+        children: <Widget>[
+          new Column(children: <Widget>[
+            Container(
+                margin: EdgeInsets.only(top: 25),
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                        child: Container(
+                            alignment: Alignment.center,
+                            child: new ClipOval(
+                              child: SizedBox(
+                                width: 80.0,
+                                height: 80.0,
+                                child: Image.asset("images/logo.png"),
+                              ),
+                            )))
+                  ],
+                )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 15, bottom: 15),
+                  child: Text(
+                    "磨叽熊猫",
+                    style: TextStyle(fontSize: 17),
+                  ),
+                )
+              ],
+            )
+          ]),
+          Divider(height:10.0,indent:0.0),
+          ListTile(
+            title: new Row(children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Text(
+                  IntlUtil.getString(context, Ids.titleAbout),
+                ),
+              ),
+            ]),
+            trailing:
+                new Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              Icon(Icons.keyboard_arrow_right),
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+}
