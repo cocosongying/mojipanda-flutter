@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mojipanda/common/component_index.dart';
 import 'package:mojipanda/routers/routers.dart';
 import 'package:mojipanda/common/global.dart';
+import 'package:mojipanda/utils/package_info_util.dart';
 
 void main() {
   Global.init(() {
@@ -61,6 +62,7 @@ class _MainAppState extends State<MainApp> {
     // _init();
     _initListener();
     _loadLocale();
+    PackageInfoUtil.init();
   }
 
   void _initListener() {

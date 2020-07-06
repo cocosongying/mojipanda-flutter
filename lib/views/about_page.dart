@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mojipanda/common/component_index.dart';
+import 'package:mojipanda/utils/package_info_util.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _AboutPageState extends State<AboutPage> {
         children: <Widget>[
           new Column(children: <Widget>[
             Container(
-                margin: EdgeInsets.only(top: 25),
+                margin: EdgeInsets.only(top: 40),
                 child: new Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -40,12 +41,24 @@ class _AboutPageState extends State<AboutPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top: 15, bottom: 15),
+                  margin: EdgeInsets.only(top: 5),
                   child: Text(
-                    "磨叽熊猫",
+                    PackageInfoUtil.getAppName(),
+                    style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(bottom: 40),
+                  child: Text(
+                    "Version " + PackageInfoUtil.getVersion(),
                     style: TextStyle(fontSize: 17),
                   ),
-                )
+                ),
               ],
             )
           ]),
@@ -55,7 +68,7 @@ class _AboutPageState extends State<AboutPage> {
               Padding(
                 padding: EdgeInsets.only(left: 10.0),
                 child: Text(
-                  IntlUtil.getString(context, Ids.titleAbout),
+                  IntlUtil.getString(context, Ids.checkUpdate),
                 ),
               ),
             ]),
