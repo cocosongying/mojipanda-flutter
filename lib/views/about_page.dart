@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mojipanda/common/component_index.dart';
+import 'package:mojipanda/utils/net_util.dart';
 import 'package:mojipanda/utils/package_info_util.dart';
 
 class AboutPage extends StatefulWidget {
@@ -75,10 +77,31 @@ class _AboutPageState extends State<AboutPage> {
             trailing:
                 new Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
               Icon(Icons.keyboard_arrow_right),
-            ]),
+            ],),
+            onTap: () {
+              try {
+                getUpdateVersion();
+              } catch (e) {
+                FlutterToast.showToast(msg: "网络错误");
+              }
+            }
           ),
         ],
       ),
     );
+  }
+
+  static getUpdateVersion() async {
+    final result = await NetUtil.get("https://mojipanda.com/api/app/all?name=mp-apk");
+    if (result['code'] == 0) {
+      String version = result['data']['list'][0]['version'];
+      if (version == PackageInfoUtil.getVersion()) {
+        FlutterToast.showToast(msg: "已是最新版本");
+      } else {
+        FlutterToast.showToast(msg: "检测到新版本");
+      }
+    } else {
+      FlutterToast.showToast(msg: "网络错误");
+    }
   }
 }
