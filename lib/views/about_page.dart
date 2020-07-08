@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mojipanda/common/component_index.dart';
-import 'package:mojipanda/utils/net_util.dart';
+import 'package:mojipanda/utils/data_util.dart';
 import 'package:mojipanda/utils/package_info_util.dart';
 
 class AboutPage extends StatefulWidget {
@@ -46,7 +46,7 @@ class _AboutPageState extends State<AboutPage> {
                   margin: EdgeInsets.only(top: 5),
                   child: Text(
                     PackageInfoUtil.getAppName(),
-                    style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -64,44 +64,33 @@ class _AboutPageState extends State<AboutPage> {
               ],
             )
           ]),
-          Divider(height:10.0,indent:0.0),
+          Divider(height: 10.0, indent: 0.0),
           ListTile(
-            title: new Row(children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: Text(
-                  IntlUtil.getString(context, Ids.checkUpdate),
+              title: new Row(children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    IntlUtil.getString(context, Ids.checkUpdate),
+                  ),
                 ),
+              ]),
+              trailing: new Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(Icons.keyboard_arrow_right),
+                ],
               ),
-            ]),
-            trailing:
-                new Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              Icon(Icons.keyboard_arrow_right),
-            ],),
-            onTap: () {
-              try {
-                getUpdateVersion();
-              } catch (e) {
-                FlutterToast.showToast(msg: "网络错误");
-              }
-            }
-          ),
+              onTap: () {
+                DataUtil.checkVersion(null).then((value) {
+                  if (value == 1) {
+                    FlutterToast.showToast(msg: "检测到新版本");
+                  } else if (value == 0) {
+                    FlutterToast.showToast(msg: "已是最新版本");
+                  }
+                });
+              }),
         ],
       ),
     );
-  }
-
-  static getUpdateVersion() async {
-    final result = await NetUtil.get("https://mojipanda.com/api/app/all?name=mp-apk");
-    if (result['code'] == 0) {
-      String version = result['data']['list'][0]['version'];
-      if (version == PackageInfoUtil.getVersion()) {
-        FlutterToast.showToast(msg: "已是最新版本");
-      } else {
-        FlutterToast.showToast(msg: "检测到新版本");
-      }
-    } else {
-      FlutterToast.showToast(msg: "网络错误");
-    }
   }
 }
