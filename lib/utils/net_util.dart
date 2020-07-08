@@ -11,27 +11,35 @@ var dio = new Dio(BaseOptions(connectTimeout: 30000, headers: optHeader));
 
 class NetUtil {
   static Future get(String url, [Map<String, dynamic> params]) async {
-    var response;
-    Directory documentDir = await getApplicationDocumentsDirectory();
-    String documentsPath = documentDir.path;
-    var dir = new Directory("$documentsPath/cookies");
-    await dir.create();
-    dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
-    if (params != null) {
-      response = await dio.get(url, queryParameters: params);
-    } else {
-      response = await dio.get(url);
+    try {
+      var response;
+      Directory documentDir = await getApplicationDocumentsDirectory();
+      String documentsPath = documentDir.path;
+      var dir = new Directory("$documentsPath/cookies");
+      await dir.create();
+      dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
+      if (params != null) {
+        response = await dio.get(url, queryParameters: params);
+      } else {
+        response = await dio.get(url);
+      }
+      return response.data;
+    } catch (e) {
+      //
     }
-    return response.data;
   }
 
   static Future post(String url, Map<String, dynamic> params) async {
-    Directory documentsDir = await getApplicationDocumentsDirectory();
-    String documentsPath = documentsDir.path;
-    var dir = new Directory("$documentsPath/cookies");
-    await dir.create();
-    dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
-    var response = await dio.post(url, data: params);
-    return response.data;
+    try {
+      Directory documentsDir = await getApplicationDocumentsDirectory();
+      String documentsPath = documentsDir.path;
+      var dir = new Directory("$documentsPath/cookies");
+      await dir.create();
+      dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
+      var response = await dio.post(url, data: params);
+      return response.data;
+    } catch (e) {
+      //
+    }
   }
 }
