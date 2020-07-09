@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mojipanda/common/component_index.dart';
 import 'package:mojipanda/models/language_model.dart';
 import 'package:mojipanda/views/language_page.dart';
@@ -13,6 +14,8 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  bool isLogin = false;
+
   @override
   Widget build(BuildContext context) {
     final ApplicationBloc bloc = BlocProvider.of<ApplicationBloc>(context);
@@ -32,34 +35,67 @@ class _SettingPageState extends State<SettingPage> {
                     image: new NetworkImage(
                         'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg'),
                     fit: BoxFit.cover)),
-            child: new Column(children: <Widget>[
-              Container(
-                  margin: EdgeInsets.only(top: 25),
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: new CircleAvatar(
-                                  backgroundImage: new NetworkImage(
-                                      'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
-                                  radius: 33.0)))
-                    ],
-                  )),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 15),
-                    child: Text(
-                      "磨叽熊猫",
-                      style: TextStyle(color: Colors.white, fontSize: 17),
-                    ),
-                  )
-                ],
-              )
-            ]),
+            child: isLogin
+                ? new Column(children: <Widget>[
+                    Container(
+                        margin: EdgeInsets.only(top: 25),
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    child: new CircleAvatar(
+                                        backgroundImage: new NetworkImage(
+                                            'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
+                                        radius: 33.0)))
+                          ],
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Text(
+                            "磨叽熊猫",
+                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          ),
+                        )
+                      ],
+                    )
+                  ])
+                : InkWell(
+                    onTap: () => _toLogin(),
+                    child: new Column(children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.only(top: 25),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      child: new CircleAvatar(
+                                          backgroundImage: new NetworkImage(
+                                              'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
+                                          radius: 33.0)))
+                            ],
+                          )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(top: 15),
+                            child: Text(
+                              "点击登录",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            ),
+                          )
+                        ],
+                      )
+                    ]),
+                  ),
           ),
           new ExpansionTile(
             title: new Row(
@@ -138,12 +174,10 @@ class _SettingPageState extends State<SettingPage> {
                 ),
               ),
             ]),
-            trailing: new Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Icon(Icons.keyboard_arrow_right),
-              ]
-            ),
+            trailing:
+                new Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              Icon(Icons.keyboard_arrow_right),
+            ]),
             onTap: () {
               NavigatorUtil.pushPage(context, AboutPage(),
                   pageName: Ids.titleAbout);
@@ -152,5 +186,9 @@ class _SettingPageState extends State<SettingPage> {
         ],
       ),
     );
+  }
+
+  _toLogin() {
+    FlutterToast.showToast(msg: "去登录");
   }
 }
