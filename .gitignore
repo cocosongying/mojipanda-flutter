@@ -22,3 +22,8 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+release-key.keystore
+android/key.properties
+
+.DS_Store
