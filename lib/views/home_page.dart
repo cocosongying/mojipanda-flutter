@@ -1,7 +1,7 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:mojipanda/common/component_index.dart';
-import 'package:mojipanda/routers/routers.dart';
+import 'package:mojipanda/components/home_card.dart';
+import 'package:mojipanda/models/home_card_model.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,20 +26,22 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(IntlUtil.getString(context, Ids.titleHome)),
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: AppBar(),
       ),
-      body: new Center(
-          child: MaterialButton(
-        child: new Text(IntlUtil.getString(context, Ids.titleBlog)),
-        onPressed: () {
-          FluroRouter.router.navigateTo(
-            context,
-            '${FluroRouter.webViewPage}?title=${Uri.encodeComponent('磨叽熊猫')}&url=${Uri.encodeComponent('https://mojipanda.com')}',
-            transition: TransitionType.nativeModal,
-          );
-        },
-      )),
+      body: Column(
+        children: <Widget>[
+          HomeCard(
+            model: HomeCardModel(
+                IntlUtil.getString(context, Ids.homeCardBlogTitle),
+                IntlUtil.getString(context, Ids.homeCardBlogContent),
+                "https://mojipanda.com",
+                IntlUtil.getString(context, Ids.homeCardBloglabel),
+                Constant.jumpTypeWeb),
+          ),
+        ],
+      ),
     );
   }
 }

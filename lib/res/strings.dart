@@ -10,6 +10,11 @@ class Ids {
   static const String languageZH = 'language_zh';
   static const String languageEN = 'language_en';
   static const String save = 'save';
+
+  // 主页卡片
+  static const String homeCardBlogTitle = 'home_card_blog_title';
+  static const String homeCardBlogContent = 'home_card_blog_content';
+  static const String homeCardBloglabel = 'home_card_blog_label';
 }
 
 Map<String, Map<String, String>> localizedSimpleValues = {
@@ -23,6 +28,11 @@ Map<String, Map<String, String>> localizedSimpleValues = {
     Ids.save: 'Save',
     Ids.titleAbout: 'About',
     Ids.checkUpdate: 'Check for updates',
+
+    // 主页卡片
+    Ids.homeCardBlogTitle: 'Blog',
+    Ids.homeCardBlogContent: 'Welcome to Mojipanda\'s home page. There are elaborate blogs and all kinds of fun. mojipanda ～\n',
+    Ids.homeCardBloglabel: 'MojiPanda',
   },
   'zh': {
     Ids.titleHome: '主页',
@@ -36,5 +46,10 @@ Map<String, Map<String, String>> localizedSimpleValues = {
     Ids.save: '保存',
     Ids.titleAbout: '关于',
     Ids.checkUpdate: '检查新版本',
+
+    // 主页卡片
+    Ids.homeCardBlogTitle: '博客',
+    Ids.homeCardBlogContent: '欢迎来到磨叽熊猫的主页，这里有精心制作的博客以及各种好玩的。mojipanda ～\n',
+    Ids.homeCardBloglabel: '磨叽熊猫',
   }
 };
