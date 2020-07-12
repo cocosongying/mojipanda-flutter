@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mojipanda/common/component_index.dart';
 import 'package:mojipanda/models/language_model.dart';
 import 'package:mojipanda/views/language_page.dart';
 import 'package:mojipanda/views/about_page.dart';
 import 'package:mojipanda/utils/navigator_util.dart';
+import 'package:mojipanda/views/login_page.dart';
 
 class SettingPage extends StatefulWidget {
   @override
@@ -189,6 +189,9 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   _toLogin() {
-    FlutterToast.showToast(msg: "去登录");
+    NavigatorUtil.pushPage(context, LoginPage(),pageName: "登录");
+
+
+    // FlutterToast.showToast(msg: "去登录");
   }
 }

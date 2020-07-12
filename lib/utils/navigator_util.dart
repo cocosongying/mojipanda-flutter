@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class NavigatorUtil {
   static void pushPage(BuildContext context, Widget page,
@@ -11,6 +11,6 @@ class NavigatorUtil {
     //   return;
     // }
     Navigator.push(
-        context, new CupertinoPageRoute<void>(builder: (ctx) => page));
+        context, new MaterialPageRoute<void>(builder: (ctx) => page));
   }
 }
