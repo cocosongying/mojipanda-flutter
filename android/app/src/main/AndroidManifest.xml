@@ -8,6 +8,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="磨叽熊猫"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/logo">
         <activity
             android:name=".MainActivity"
