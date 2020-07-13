@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mojipanda/common/component_index.dart';
 import 'package:mojipanda/models/language_model.dart';
+import 'package:mojipanda/models/userinfo_model.dart';
 import 'package:mojipanda/views/language_page.dart';
 import 'package:mojipanda/views/about_page.dart';
 import 'package:mojipanda/utils/navigator_util.dart';
@@ -9,45 +10,56 @@ import 'package:mojipanda/views/login_page.dart';
 class SettingPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new _SettingPageState();
+    return _SettingPageState();
   }
 }
 
 class _SettingPageState extends State<SettingPage> {
   bool isLogin = false;
+  UserInfoModel _userInfoModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _userInfoModel =
+        SpUtil.getObj(Constant.keyUserInfo, (v) => UserInfoModel.fromJson(v));
+    if (_userInfoModel != null) {
+      isLogin = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final ApplicationBloc bloc = BlocProvider.of<ApplicationBloc>(context);
     LanguageModel languageModel =
         SpUtil.getObj(Constant.keyLanguage, (v) => LanguageModel.fromJson(v));
-    return new Scaffold(
+    return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
         child: AppBar(),
       ),
-      body: new ListView(
+      body: ListView(
         children: <Widget>[
-          new Container(
+          Container(
             height: 210,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: new NetworkImage(
+                    image: NetworkImage(
                         'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg'),
                     fit: BoxFit.cover)),
             child: isLogin
-                ? new Column(children: <Widget>[
+                ? Column(children: <Widget>[
                     Container(
                         margin: EdgeInsets.only(top: 25),
-                        child: new Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Expanded(
                                 child: Container(
                                     alignment: Alignment.center,
-                                    child: new CircleAvatar(
-                                        backgroundImage: new NetworkImage(
-                                            'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
+                                    child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            _userInfoModel.userInfo.avatar),
                                         radius: 33.0)))
                           ],
                         )),
@@ -57,7 +69,7 @@ class _SettingPageState extends State<SettingPage> {
                         Container(
                           margin: EdgeInsets.only(top: 15),
                           child: Text(
-                            "磨叽熊猫",
+                            _userInfoModel.userInfo.nickname,
                             style: TextStyle(color: Colors.white, fontSize: 17),
                           ),
                         )
@@ -66,17 +78,17 @@ class _SettingPageState extends State<SettingPage> {
                   ])
                 : InkWell(
                     onTap: () => _toLogin(),
-                    child: new Column(children: <Widget>[
+                    child: Column(children: <Widget>[
                       Container(
                           margin: EdgeInsets.only(top: 25),
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               Expanded(
                                   child: Container(
                                       alignment: Alignment.center,
-                                      child: new CircleAvatar(
-                                          backgroundImage: new NetworkImage(
+                                      child: CircleAvatar(
+                                          backgroundImage: NetworkImage(
                                               'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
                                           radius: 33.0)))
                             ],
@@ -97,8 +109,8 @@ class _SettingPageState extends State<SettingPage> {
                     ]),
                   ),
           ),
-          new ExpansionTile(
-            title: new Row(
+          ExpansionTile(
+            title: Row(
               children: <Widget>[
                 Icon(
                   Icons.color_lens,
@@ -112,15 +124,15 @@ class _SettingPageState extends State<SettingPage> {
               ],
             ),
             children: <Widget>[
-              new Wrap(
+              Wrap(
                 children: themeColorMap.keys.map((String key) {
                   Color value = themeColorMap[key];
-                  return new InkWell(
+                  return InkWell(
                       onTap: () {
                         SpUtil.putString(Constant.keyThemeColor, key);
                         bloc.sendAppEvent(Constant.type_sys_update);
                       },
-                      child: new Container(
+                      child: Container(
                         margin: EdgeInsets.all(5.0),
                         width: 36.0,
                         height: 36.0,
@@ -130,8 +142,8 @@ class _SettingPageState extends State<SettingPage> {
               )
             ],
           ),
-          new ListTile(
-            title: new Row(children: <Widget>[
+          ListTile(
+            title: Row(children: <Widget>[
               Icon(
                 Icons.language,
                 color: Colours.gray_66,
@@ -161,8 +173,8 @@ class _SettingPageState extends State<SettingPage> {
                   pageName: Ids.titleLanguage);
             },
           ),
-          new ListTile(
-            title: new Row(children: <Widget>[
+          ListTile(
+            title: Row(children: <Widget>[
               Icon(
                 Icons.info_outline,
                 color: Colours.gray_66,
@@ -174,8 +186,7 @@ class _SettingPageState extends State<SettingPage> {
                 ),
               ),
             ]),
-            trailing:
-                new Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
               Icon(Icons.keyboard_arrow_right),
             ]),
             onTap: () {
@@ -183,15 +194,68 @@ class _SettingPageState extends State<SettingPage> {
                   pageName: Ids.titleAbout);
             },
           ),
+          Container(
+            width: double.infinity,
+            height: 8.0,
+            color: Color(0xFFF3F3F3),
+          ),
+          buildExitButton(),
         ],
       ),
     );
   }
 
   _toLogin() {
-    NavigatorUtil.pushPage(context, LoginPage(),pageName: "登录");
+    NavigatorUtil.pushPage(context, LoginPage(), pageName: "登录");
+  }
 
-
-    // FlutterToast.showToast(msg: "去登录");
+  Widget buildExitButton() {
+    if (isLogin) {
+      return InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Text('退出登录?'),
+                actions: <Widget>[
+                  FlatButton(
+                      onPressed: () {
+                        SpUtil.remove(Constant.keyUserInfo);
+                        setState(() {
+                          isLogin = false;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('确定')),
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('取消')),
+                ],
+                backgroundColor: Colors.white,
+                elevation: 20,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+              );
+            },
+          );
+        },
+        child: Container(
+          margin: const EdgeInsets.only(left: 35, right: 35),
+          color: Colors.deepOrange,
+          child: SizedBox(
+            height: 50,
+            child: Center(
+              child: Text('退出登录',
+                  style: TextStyle(fontSize: 18.0, color: Colors.white)),
+            ),
+          ),
+        ),
+      );
+    }
+    return Container();
   }
 }

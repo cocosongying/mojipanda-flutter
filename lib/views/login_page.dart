@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mojipanda/common/component_index.dart';
 import 'package:mojipanda/models/userinfo_model.dart';
 import 'package:mojipanda/utils/crypto_util.dart';
 import 'package:mojipanda/utils/data_util.dart';
@@ -239,6 +240,7 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = false;
     });
     if (userInfo != null) {
+      SpUtil.putObject(Constant.keyUserInfo, userInfo);
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => MainPage()),
           (route) => route == null);

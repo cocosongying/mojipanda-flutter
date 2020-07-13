@@ -1,6 +1,7 @@
 class Constant {
   static const String keyLanguage = 'key_language';
   static const String keyThemeColor = 'key_theme_color';
+  static const String keyUserInfo = 'key_user_info';
   static const int type_sys_update = 1;
 
   static const int jumpTypePage = 0;

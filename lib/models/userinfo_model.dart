@@ -4,6 +4,10 @@ class UserInfoModel {
   UserInfoModel.fromJson(Map<String, dynamic> json)
       : userInfo = UserInfo.fromJson(json['userInfo']),
         token = json['token'];
+  Map<String, dynamic> toJson() => {
+        'token': token,
+        'userInfo': userInfo.toJson(),
+      };
 }
 
 class UserInfo {
@@ -18,4 +22,11 @@ class UserInfo {
         nickname = json['nickname'],
         avatar = json['avatar'],
         description = json['description'];
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'username': username,
+        'nickname': nickname,
+        'avatar': avatar,
+        'description': description,
+      };
 }
