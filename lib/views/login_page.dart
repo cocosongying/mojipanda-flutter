@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mojipanda/models/userinfo_model.dart';
+import 'package:mojipanda/utils/crypto_util.dart';
 import 'package:mojipanda/utils/data_util.dart';
 import 'package:mojipanda/views/main_page.dart';
 
@@ -229,10 +230,9 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLoading = true;
     });
-    // print(CryptoUtil.aesEncrypt(password, null).toString());
     Map<String, String> params = {
       'username': username,
-      'password': "U2FsdGVkX18n0+UNyvaaPgj43mgpSX/yfwxft8dIfzs=",
+      'password': CryptoUtil.sha1Digest(password),
     };
     UserInfoModel userInfo = await DataUtil.login(params);
     setState(() {

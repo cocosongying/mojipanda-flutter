@@ -27,6 +27,9 @@ class DataUtil {
       UserInfoModel userInfo = UserInfoModel.fromJson(result['data']);
       return userInfo;
     }
+    if (result != null && result['code'] != null) {
+      FlutterToast.showToast(msg: "用户名或密码错误");
+    }
     return null;
   }
 
@@ -34,7 +37,9 @@ class DataUtil {
     if (result != null && result['code'] == 0) {
       return true;  
     }
-    FlutterToast.showToast(msg: "网络错误");
+    if (result == null || result['code'] == null) {
+      FlutterToast.showToast(msg: "网络错误");
+    }
     return false;
   }
 }
