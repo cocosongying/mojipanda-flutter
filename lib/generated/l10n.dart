@@ -461,7 +461,7 @@ class S {
     );
   }
 
-  String get Like {
+  String get like {
     return Intl.message(
       'Like',
       name: 'Like',
@@ -524,7 +524,7 @@ class S {
     );
   }
 
-  String get article_tag_top {
+  String get articleTagTop {
     return Intl.message(
       'Top',
       name: 'article_tag_top',
