@@ -1,90 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mojipanda/common/component_index.dart';
-import 'package:mojipanda/routers/routers.dart';
-import 'package:mojipanda/common/global.dart';
-import 'package:mojipanda/utils/package_info_util.dart';
+import 'package:mojipanda/common/provider_manager.dart';
+import 'package:mojipanda/common/router_manger.dart';
+import 'package:mojipanda/common/storage_manager.dart';
+import 'package:mojipanda/generated/l10n.dart';
+import 'package:mojipanda/view_model/locale_view_model.dart';
+import 'package:mojipanda/view_model/theme_view_model.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-void main() {
-  Global.init(() {
-    runApp(BlocProvider<ApplicationBloc>(
-      bloc: ApplicationBloc(),
-      child: BlocProvider(
-        child: MainApp(),
-        bloc: MainBloc(),
-      ),
-    ));
-  });
+void main() async {
+  Provider.debugCheckInvalidValueType = null;
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageManager.init();
+  runApp(App());
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
 }
 
-class MainApp extends StatefulWidget {
-  @override
-  MainApp() {
-    FluroRouter.initRouter();
-  }
-  @override
-  _MainAppState createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  Locale _locale;
-  Color _themeColor = Colours.app_main;
-
-  @override
-  void initState() {
-    super.initState();
-    setInitDir(initStorageDir: true);
-    setLocalizedSimpleValues(localizedSimpleValues);
-    // setLocalizedValues
-    init();
-  }
-
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: FluroRouter.router.generator,
-      theme: ThemeData.light().copyWith(
-        primaryColor: _themeColor,
-        accentColor: _themeColor,
-        indicatorColor: Colors.white,
+    return OKToast(
+      child: MultiProvider(
+        providers: providers,
+        child: Consumer2<ThemeViewModel, LocaleViewModel>(
+          builder: (context, themeViewModel, localeViewModel, child) {
+            return RefreshConfiguration(
+              hideFooterWhenNotFull: true,
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: themeViewModel.themeData(),
+                darkTheme: themeViewModel.themeData(platformDarkMode: true),
+                locale: localeViewModel.locale,
+                localizationsDelegates: const [
+                  S.delegate,
+                  RefreshLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate
+                ],
+                supportedLocales: S.delegate.supportedLocales,
+                onGenerateRoute: Router.generateRoute,
+                initialRoute: RouteName.splash,
+              ),
+            );
+          },
+        ),
       ),
-      locale: _locale,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        CustomLocalizations.delegate
-      ],
-      supportedLocales: CustomLocalizations.supportedLocales,
     );
-  }
-
-  void init() {
-    // _init();
-    _initListener();
-    _loadLocale();
-    PackageInfoUtil.init();
-  }
-
-  void _initListener() {
-    final ApplicationBloc bloc = BlocProvider.of<ApplicationBloc>(context);
-    bloc.appEventStream.listen((value) {
-      _loadLocale();
-    });
-  }
-
-  void _loadLocale() {
-    setState(() {
-      LanguageModel model =
-          SpUtil.getObj(Constant.keyLanguage, (v) => LanguageModel.fromJson(v));
-      if (model != null) {
-        _locale = new Locale(model.languageCode, model.countryCode);
-      } else {
-        _locale = null;
-      }
-
-      String _colorKey = SpHelper.getThemeColor();
-      if (themeColorMap[_colorKey] != null)
-        _themeColor = themeColorMap[_colorKey];
-    });
   }
 }

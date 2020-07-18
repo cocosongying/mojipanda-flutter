@@ -1,7 +1,5 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:mojipanda/models/home_card_model.dart';
-import 'package:mojipanda/routers/routers.dart';
 
 class HomeCard extends StatefulWidget {
   final HomeCardModel model;
@@ -16,13 +14,13 @@ class _HomeCardState extends State<HomeCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        widget.model.type == 1
-            ? FluroRouter.router.navigateTo(
-                context,
-                '${FluroRouter.webViewPage}?title=${Uri.encodeComponent(widget.model.label)}&url=${Uri.encodeComponent(widget.model.url)}',
-                transition: TransitionType.fadeIn,
-              )
-            : print('navigate to some page');
+        // widget.model.type == 1
+        //     ? FluroRouter.router.navigateTo(
+        //         context,
+        //         '${FluroRouter.webViewPage}?title=${Uri.encodeComponent(widget.model.label)}&url=${Uri.encodeComponent(widget.model.url)}',
+        //         transition: TransitionType.fadeIn,
+        //       )
+        //     : print('navigate to some page');
       },
       child: Card(
         color: Colors.blue,

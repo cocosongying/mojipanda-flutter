@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mojipanda/common/component_index.dart';
+import 'package:mojipanda/common/common.dart';
 import 'package:mojipanda/components/home_card.dart';
 import 'package:mojipanda/models/home_card_model.dart';
 
 class HomePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _HomePageState();
-  }
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>
@@ -34,10 +32,10 @@ class _HomePageState extends State<HomePage>
         children: <Widget>[
           HomeCard(
             model: HomeCardModel(
-                IntlUtil.getString(context, Ids.homeCardBlogTitle),
-                IntlUtil.getString(context, Ids.homeCardBlogContent),
+                '博客',
+                'dd',
                 "https://mojipanda.com",
-                IntlUtil.getString(context, Ids.homeCardBloglabel),
+                '磨叽熊猫',
                 Constant.jumpTypeWeb),
           ),
         ],
