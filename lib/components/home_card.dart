@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mojipanda/models/home_card_model.dart';
+import 'package:mojipanda/views/web_view_page.dart';
 
 class HomeCard extends StatefulWidget {
   final HomeCardModel model;
@@ -14,16 +16,18 @@ class _HomeCardState extends State<HomeCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // widget.model.type == 1
-        //     ? FluroRouter.router.navigateTo(
-        //         context,
-        //         '${FluroRouter.webViewPage}?title=${Uri.encodeComponent(widget.model.label)}&url=${Uri.encodeComponent(widget.model.url)}',
-        //         transition: TransitionType.fadeIn,
-        //       )
-        //     : print('navigate to some page');
+        // 暂时只有一个页面
+        Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) =>
+                WebViewPage(widget.model.url, widget.model.label),
+            fullscreenDialog: true,
+          ),
+        );
       },
       child: Card(
-        color: Colors.blue,
+        color: Theme.of(context).cardColor,
         elevation: 20.0,
         margin:
             EdgeInsets.only(top: 16.0, right: 32.0, left: 32.0, bottom: 16.0),
