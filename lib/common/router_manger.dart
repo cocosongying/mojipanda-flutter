@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mojipanda/models/web_model.dart';
 import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
 import 'package:mojipanda/views/splash.dart';
 import 'package:mojipanda/views/tab/tab_navigator.dart';
+import 'package:mojipanda/views/web_detail_page.dart';
 import 'package:mojipanda/widgets/page_route_anim.dart';
 
 class RouteName {
   static const String splash = 'splash';
   static const String tab = '/';
   static const String login = 'login';
+  static const String web = 'web';
   static const String setting = 'setting';
 }
 
@@ -25,6 +28,13 @@ class Router {
           fullscreenDialog: true,
           builder: (_) => LoginPage(),
         );
+      case RouteName.web:
+        var webModel = settings.arguments as WebModel;
+        return CupertinoPageRoute(builder: (_) {
+          return WebDetailPage(
+            webModel: webModel,
+          );
+        });
       case RouteName.setting:
         return CupertinoPageRoute(builder: (_) => SettingPage());
       default:

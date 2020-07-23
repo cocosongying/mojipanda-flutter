@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mojipanda/common/router_manger.dart';
 import 'package:mojipanda/models/home_card_model.dart';
-import 'package:mojipanda/views/web_view_page.dart';
+import 'package:mojipanda/models/web_model.dart';
 
 class HomeCard extends StatefulWidget {
   final HomeCardModel model;
@@ -17,13 +18,19 @@ class _HomeCardState extends State<HomeCard> {
     return InkWell(
       onTap: () {
         // 暂时只有一个页面
-        Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (context) =>
-                WebViewPage(widget.model.url, widget.model.label),
-            fullscreenDialog: true,
-          ),
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(
+        //     builder: (context) =>
+        //         WebViewPage(widget.model.url, widget.model.label),
+        //     fullscreenDialog: true,
+        //   ),
+        // );
+        Navigator.of(context).pushNamed(
+          RouteName.web,
+          arguments: WebModel()
+            ..title = widget.model.label
+            ..url = widget.model.url
         );
       },
       child: Card(
