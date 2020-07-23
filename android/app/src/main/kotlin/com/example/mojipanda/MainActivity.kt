@@ -1,4 +1,4 @@
-package com.example.mojipanda
+package com.mojipanda
 
 import io.flutter.embedding.android.FlutterActivity
 
