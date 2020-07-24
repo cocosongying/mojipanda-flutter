@@ -39,8 +39,7 @@ class _WebDetailPageState extends State<WebDetailPage> {
         ),
         actions: <Widget>[
           WebViewPopupMenu(
-            _webViewController,
-            widget.webModel,
+            webModel: widget.webModel,
           ),
         ],
       ),
@@ -55,6 +54,7 @@ class _WebDetailPageState extends State<WebDetailPage> {
           },
           onWebViewCreated: (WebViewController controller) {
             _webViewController = controller;
+            widget.webModel.controller = controller;
           },
           onPageFinished: (String value) async {
             if (!_finishedCompleter.isCompleted) {
@@ -110,17 +110,21 @@ class WebViewTitle extends StatelessWidget {
 }
 
 class WebViewPopupMenu extends StatelessWidget {
-  final WebViewController controller;
   final WebModel webModel;
 
-  WebViewPopupMenu(this.controller, this.webModel);
+  WebViewPopupMenu({this.webModel});
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
       itemBuilder: (context) => <PopupMenuEntry<int>>[
         PopupMenuItem(
-          child: WebViewPopupMenuItem(Icons.language, S.of(context).openBrowser),
+          child: WebViewPopupMenuItem(Icons.autorenew, S.of(context).refresh),
+          value: 0,
+        ),
+        PopupMenuItem(
+          child:
+              WebViewPopupMenuItem(Icons.language, S.of(context).openBrowser),
           value: 1,
         ),
         PopupMenuItem(
@@ -131,6 +135,7 @@ class WebViewPopupMenu extends StatelessWidget {
       onSelected: (value) async {
         switch (value) {
           case 0:
+            webModel.controller.reload();
             break;
           case 1:
             launch(webModel.current, forceSafariVC: false);
