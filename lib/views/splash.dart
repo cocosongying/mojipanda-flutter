@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:mojipanda/common/resource_mananger.dart';
-import 'package:mojipanda/common/router_manger.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/generated/l10n.dart';
 
 class SplashPage extends StatefulWidget {

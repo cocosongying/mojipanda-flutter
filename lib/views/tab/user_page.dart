@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mojipanda/common/router_manger.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/generated/l10n.dart';
 import 'package:mojipanda/provider/provider_widget.dart';
 import 'package:mojipanda/view_model/login_view_model.dart';

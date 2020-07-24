@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mojipanda/common/provider_manager.dart';
-import 'package:mojipanda/common/router_manger.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/common/storage_manager.dart';
 import 'package:mojipanda/generated/l10n.dart';
 import 'package:mojipanda/view_model/locale_view_model.dart';

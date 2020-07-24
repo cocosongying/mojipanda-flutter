@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mojipanda/common/router_manger.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/models/home_card_model.dart';
 import 'package:mojipanda/models/web_model.dart';
 
