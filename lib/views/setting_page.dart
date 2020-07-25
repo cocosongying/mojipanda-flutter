@@ -22,7 +22,6 @@ class SettingPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Material(
-                // color: Theme.of(context).cardColor,
                 child: ExpansionTile(
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +61,6 @@ class SettingPage extends StatelessWidget {
                 ),
               ),
               Material(
-                // color: Theme.of(context).cardColor,
                 child: ExpansionTile(
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,6 +95,49 @@ class SettingPage extends StatelessWidget {
                             groupValue: model.localeIndex,
                             title: Text(
                                 LocaleViewModel.localeName(index, context)),
+                          );
+                        })
+                  ],
+                ),
+              ),
+              Material(
+                child: ExpansionTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        S.of(context).darkMode,
+                        style: TextStyle(),
+                      ),
+                      Text(
+                        ThemeViewModel.brightnessName(
+                            Provider.of<ThemeViewModel>(context)
+                                .brightnessIndex,
+                            context),
+                        style: Theme.of(context).textTheme.caption,
+                      )
+                    ],
+                  ),
+                  leading: Icon(
+                    Theme.of(context).brightness == Brightness.light
+                        ? Icons.brightness_5
+                        : Icons.brightness_2,
+                    color: iconColor,
+                  ),
+                  children: <Widget>[
+                    ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          var model = Provider.of<ThemeViewModel>(context);
+                          return RadioListTile(
+                            value: index,
+                            onChanged: (index) {
+                              model.switchBrightness(index);
+                            },
+                            groupValue: model.brightnessIndex,
+                            title: Text(
+                                ThemeViewModel.brightnessName(index, context)),
                           );
                         })
                   ],

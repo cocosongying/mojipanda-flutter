@@ -8,13 +8,13 @@ import 'package:mojipanda/helper/theme_helper.dart';
 
 class ThemeViewModel with ChangeNotifier {
   static const kThemeColorIndex = 'kThemeColorIndex';
-  static const kThemeUserDarkMode = 'kThemeUserDarkMode';
+  static const kBrightnessIndex = 'kBrightnessIndex';
   static const kFontIndex = 'kFontIndex';
 
   static const fontValueList = ['system', 'kuaile'];
 
-  /// 用户选择的明暗模式
-  bool _userDarkMode;
+  int _brightnessIndex;
+  int get brightnessIndex => _brightnessIndex;
 
   /// 当前主题颜色
   MaterialColor _themeColor;
@@ -23,16 +23,15 @@ class ThemeViewModel with ChangeNotifier {
   int _fontIndex;
 
   ThemeViewModel() {
-    /// 用户选择的明暗模式
-    _userDarkMode =
-        StorageManager.sharedPreferences.getBool(kThemeUserDarkMode) ?? false;
-
     /// 获取主题色
     _themeColor = Colors.primaries[
         StorageManager.sharedPreferences.getInt(kThemeColorIndex) ?? 5];
 
     /// 获取字体
     _fontIndex = StorageManager.sharedPreferences.getInt(kFontIndex) ?? 0;
+
+    _brightnessIndex =
+        StorageManager.sharedPreferences.getInt(kBrightnessIndex) ?? 0;
   }
 
   int get fontIndex => _fontIndex;
@@ -40,11 +39,10 @@ class ThemeViewModel with ChangeNotifier {
   /// 切换指定色彩
   ///
   /// 没有传[brightness]就不改变brightness,color同理
-  void switchTheme({bool userDarkMode, MaterialColor color}) {
-    _userDarkMode = userDarkMode ?? _userDarkMode;
+  void switchTheme({MaterialColor color}) {
     _themeColor = color ?? _themeColor;
     notifyListeners();
-    saveTheme2Storage(_userDarkMode, _themeColor);
+    saveTheme2Storage(_themeColor);
   }
 
   /// 随机一个主题色彩
@@ -53,7 +51,6 @@ class ThemeViewModel with ChangeNotifier {
   void switchRandomTheme({Brightness brightness}) {
     int colorIndex = Random().nextInt(Colors.primaries.length - 1);
     switchTheme(
-      userDarkMode: Random().nextBool(),
       color: Colors.primaries[colorIndex],
     );
   }
@@ -65,10 +62,16 @@ class ThemeViewModel with ChangeNotifier {
     saveFontIndex(index);
   }
 
+  switchBrightness(int index) {
+    _brightnessIndex = index;
+    notifyListeners();
+    StorageManager.sharedPreferences.setInt(kBrightnessIndex, index);
+  }
+
   /// 根据主题 明暗 和 颜色 生成对应的主题
   /// [dark]系统的Dark Mode
   themeData({bool platformDarkMode: false}) {
-    var isDark = platformDarkMode || _userDarkMode;
+    var isDark = platformDarkMode;
     Brightness brightness = isDark ? Brightness.dark : Brightness.light;
 
     var themeColor = _themeColor;
@@ -114,13 +117,10 @@ class ThemeViewModel with ChangeNotifier {
   }
 
   /// 数据持久化到shared preferences
-  saveTheme2Storage(bool userDarkMode, MaterialColor themeColor) async {
+  saveTheme2Storage(MaterialColor themeColor) async {
     var index = Colors.primaries.indexOf(themeColor);
-    await Future.wait([
-      StorageManager.sharedPreferences
-          .setBool(kThemeUserDarkMode, userDarkMode),
-      StorageManager.sharedPreferences.setInt(kThemeColorIndex, index)
-    ]);
+    await Future.wait(
+        [StorageManager.sharedPreferences.setInt(kThemeColorIndex, index)]);
   }
 
   /// 根据索引获取字体名称,这里牵涉到国际化
@@ -138,5 +138,18 @@ class ThemeViewModel with ChangeNotifier {
   /// 字体选择持久化
   static saveFontIndex(int index) async {
     await StorageManager.sharedPreferences.setInt(kFontIndex, index);
+  }
+
+  static String brightnessName(index, context) {
+    switch (index) {
+      case 0:
+        return S.of(context).autoBySystem;
+      case 1:
+        return '亮色';
+      case 2:
+        return '暗色';
+      default:
+        return '';
+    }
   }
 }

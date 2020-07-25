@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mojipanda/common/router_manager.dart';
@@ -11,7 +9,6 @@ import 'package:mojipanda/view_model/user_view_model.dart';
 import 'package:mojipanda/views/change_log_page.dart';
 import 'package:mojipanda/widgets/app_bar.dart';
 import 'package:mojipanda/widgets/bottom_clipper.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
 class UserPage extends StatefulWidget {
@@ -128,27 +125,6 @@ class UserListWidget extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 30),
       child: SliverList(
         delegate: SliverChildListDelegate([
-          ListTile(
-            title: Text(S.of(context).darkMode),
-            onTap: () {
-              switchDarkMode(context);
-            },
-            leading: Transform.rotate(
-              angle: -pi,
-              child: Icon(
-                Theme.of(context).brightness == Brightness.light
-                    ? Icons.brightness_5
-                    : Icons.brightness_2,
-                color: iconColor,
-              ),
-            ),
-            trailing: CupertinoSwitch(
-                activeColor: Theme.of(context).accentColor,
-                value: Theme.of(context).brightness == Brightness.dark,
-                onChanged: (value) {
-                  switchDarkMode(context);
-                }),
-          ),
           SettingThemeWidget(),
           ListTile(
             title: Text(S.of(context).setting),
@@ -184,15 +160,6 @@ class UserListWidget extends StatelessWidget {
         ]),
       ),
     );
-  }
-
-  void switchDarkMode(BuildContext context) {
-    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      showToast("检测到系统为暗黑模式,已为你自动切换", position: ToastPosition.bottom);
-    } else {
-      Provider.of<ThemeViewModel>(context, listen: false).switchTheme(
-          userDarkMode: Theme.of(context).brightness == Brightness.light);
-    }
   }
 }
 

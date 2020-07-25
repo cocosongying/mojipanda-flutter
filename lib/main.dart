@@ -32,25 +32,49 @@ class App extends StatelessWidget {
         providers: providers,
         child: Consumer2<ThemeViewModel, LocaleViewModel>(
           builder: (context, themeViewModel, localeViewModel, child) {
-            return RefreshConfiguration(
-              hideFooterWhenNotFull: true,
-              child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: themeViewModel.themeData(),
-                darkTheme: themeViewModel.themeData(platformDarkMode: true),
-                locale: localeViewModel.locale,
-                localizationsDelegates: const [
-                  S.delegate,
-                  RefreshLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-                onGenerateRoute: Router.generateRoute,
-                initialRoute: RouteName.splash,
-              ),
-            );
+            return themeViewModel.brightnessIndex == 0
+                ? RefreshConfiguration(
+                    hideFooterWhenNotFull: true,
+                    child: MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: themeViewModel.themeData(),
+                      darkTheme:
+                          themeViewModel.themeData(platformDarkMode: true),
+                      locale: localeViewModel.locale,
+                      localizationsDelegates: const [
+                        S.delegate,
+                        RefreshLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate
+                      ],
+                      supportedLocales: S.delegate.supportedLocales,
+                      onGenerateRoute: Router.generateRoute,
+                      initialRoute: RouteName.splash,
+                    ),
+                  )
+                : RefreshConfiguration(
+                    hideFooterWhenNotFull: true,
+                    child: MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: themeViewModel.brightnessIndex == 1
+                          ? themeViewModel.themeData()
+                          : themeViewModel.themeData(platformDarkMode: true),
+                      // theme: themeViewModel.darkMode == 0 ? themeViewModel.themeData() : themeViewModel.themeData(platformDarkMode: true),
+                      // darkTheme: themeViewModel.themeData(platformDarkMode: true),
+                      locale: localeViewModel.locale,
+                      localizationsDelegates: const [
+                        S.delegate,
+                        RefreshLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate
+                      ],
+                      supportedLocales: S.delegate.supportedLocales,
+                      onGenerateRoute: Router.generateRoute,
+                      initialRoute: RouteName.splash,
+                    ),
+                  );
           },
         ),
       ),

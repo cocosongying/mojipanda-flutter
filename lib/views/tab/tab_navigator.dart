@@ -46,11 +46,12 @@ class _TabNavigatorState extends State<TabNavigator> {
         },
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Theme.of(context).accentColor,
+        // backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black12
+            : Theme.of(context).accentColor,
         color: Theme.of(context).scaffoldBackgroundColor,
-        buttonBackgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? Colors.black54
-            : Colors.white60,
+        buttonBackgroundColor: Colors.black54,
         height: 50.0,
         items: <Widget>[
           Icon(
