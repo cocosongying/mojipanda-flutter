@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:mojipanda/common/common.dart';
 import 'package:mojipanda/components/home_card.dart';
 import 'package:mojipanda/models/home_card_model.dart';
@@ -40,7 +42,9 @@ class _HomePageState extends State<HomePage>
           ),
           IconButton(
             icon: Icon(Icons.filter_center_focus),
-            onPressed: () {},
+            onPressed: () {
+              scan();
+            },
           ),
         ],
       ),
@@ -53,5 +57,20 @@ class _HomePageState extends State<HomePage>
         ],
       ),
     );
+  }
+
+  Future scan() async {
+    try {
+      String result = await scanner.scan();
+      showToast(result);
+      print(result);
+    } catch (e) {
+      if (e == scanner.CameraAccessDenied) {
+        showToast('没有拍照权限!');
+        print('没有拍照权限!');
+      } else {
+        print(e);
+      }
+    }
   }
 }
