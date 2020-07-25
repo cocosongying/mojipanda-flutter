@@ -1,5 +1,5 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:mojipanda/generated/l10n.dart';
 import 'package:mojipanda/views/tab/home_page.dart';
 import 'package:mojipanda/views/tab/user_page.dart';
 
@@ -17,7 +17,6 @@ class TabNavigator extends StatefulWidget {
 
 class _TabNavigatorState extends State<TabNavigator> {
   var _pageController = PageController();
-  int _selectedIndex = 0;
   DateTime _lastPressed;
 
   @override
@@ -35,11 +34,6 @@ class _TabNavigatorState extends State<TabNavigator> {
           itemCount: pages.length,
           controller: _pageController,
           physics: NeverScrollableScrollPhysics(),
-          onPageChanged: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
         ),
         onWillPop: () async {
           if (_lastPressed == null ||
@@ -51,19 +45,23 @@ class _TabNavigatorState extends State<TabNavigator> {
           return true;
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text(S.of(context).tabHome),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Theme.of(context).accentColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        buttonBackgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black54
+            : Colors.white60,
+        height: 50.0,
+        items: <Widget>[
+          Icon(
+            Icons.home,
+            color: Theme.of(context).accentColor,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.insert_emoticon),
-            title: Text(S.of(context).tabUser),
+          Icon(
+            Icons.account_box,
+            color: Theme.of(context).accentColor,
           ),
         ],
-        currentIndex: _selectedIndex,
         onTap: (index) {
           _pageController.jumpToPage(index);
         },

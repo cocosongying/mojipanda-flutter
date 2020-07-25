@@ -31,8 +31,10 @@ class _ChangeLogPageState extends State<ChangeLogPage> {
       appBar: AppBar(
         title: ValueListenableBuilder(
             valueListenable: versionNotifier,
-            builder: (ctx, value, child) =>
-                Text(S.of(context).appUpdateCheckUpdate + ' v$value')),
+            builder: (ctx, value, child) => Text(
+                  S.of(context).appUpdateCheckUpdate + ' v$value',
+                  style: TextStyle(fontSize: 16),
+                )),
       ),
       body: SafeArea(
         child: Stack(

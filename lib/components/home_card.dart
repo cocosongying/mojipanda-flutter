@@ -48,20 +48,20 @@ class _HomeCardState extends State<HomeCard> {
             ListTile(
               title: Text(
                 widget.model.title,
-                style: TextStyle(color: Colors.white, fontSize: 20.0),
+                // style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
               trailing: Icon(
                 Icons.keyboard_arrow_right,
-                color: Colors.white,
+                // color: Colors.white,
               ),
             ),
             new Divider(
-              color: Colors.white,
+              // color: Colors.white,
             ),
             ListTile(
               subtitle: Text(
                 widget.model.content,
-                style: TextStyle(color: Colors.white),
+                // style: TextStyle(color: Colors.white),
               ),
             )
           ],

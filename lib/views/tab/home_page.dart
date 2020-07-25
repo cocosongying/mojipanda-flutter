@@ -24,18 +24,30 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     return new Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.zero,
+      //   child: AppBar(),
+      // ),
+      appBar: AppBar(
+        title: Text(
+          '磨叽熊猫',
+          style: TextStyle(fontSize: 16),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.filter_center_focus),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[
           HomeCard(
-            model: HomeCardModel(
-                '博客',
-                'dd',
-                "https://mojipanda.com",
-                '磨叽熊猫',
+            model: HomeCardModel('博客', 'dd', "https://mojipanda.com", '磨叽熊猫',
                 Constant.jumpTypeWeb),
           ),
         ],

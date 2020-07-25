@@ -11,7 +11,10 @@ class SettingPage extends StatelessWidget {
     var iconColor = Theme.of(context).accentColor;
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).setting),
+        title: Text(
+          S.of(context).setting,
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       body: SingleChildScrollView(
         child: ListTileTheme(
