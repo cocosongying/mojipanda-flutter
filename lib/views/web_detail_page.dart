@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mojipanda/generated/l10n.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:mojipanda/models/web_model.dart';
 import 'package:mojipanda/widgets/app_bar.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class WebDetailPage extends StatefulWidget {
   final WebModel webModel;
@@ -17,64 +16,81 @@ class WebDetailPage extends StatefulWidget {
 }
 
 class _WebDetailPageState extends State<WebDetailPage> {
-  WebViewController _webViewController;
+  final flutterWebViewPlugin = FlutterWebviewPlugin();
   Completer<bool> _finishedCompleter = Completer();
-
-  ValueNotifier canGoBack = ValueNotifier(false);
-  ValueNotifier canGoForward = ValueNotifier(false);
 
   @override
   void initState() {
-    widget.webModel.current = widget.webModel.url;
+    flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
+      if (!_finishedCompleter.isCompleted &&
+          state.type == WebViewState.finishLoad) {
+        _finishedCompleter.complete(true);
+      }
+    });
+    flutterWebViewPlugin.onUrlChanged.listen((String url) {
+      widget.webModel.current = url;
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    flutterWebViewPlugin.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: WebViewTitle(
-          title: widget.webModel.title,
-          future: _finishedCompleter.future,
-        ),
-        actions: <Widget>[
-          WebViewPopupMenu(
-            webModel: widget.webModel,
+        appBar: AppBar(
+          title: WebViewTitle(
+            title: widget.webModel.title,
+            future: _finishedCompleter.future,
           ),
-        ],
-      ),
-      body: SafeArea(
-        bottom: false,
-        child: WebView(
-          initialUrl: widget.webModel.url,
-          javascriptMode: JavascriptMode.unrestricted,
-          navigationDelegate: (NavigationRequest request) {
-            widget.webModel.current = request.url;
-            return NavigationDecision.navigate;
-          },
-          onWebViewCreated: (WebViewController controller) {
-            _webViewController = controller;
-            widget.webModel.controller = controller;
-          },
-          onPageFinished: (String value) async {
-            if (!_finishedCompleter.isCompleted) {
-              _finishedCompleter.complete(true);
-            }
-            refreshNavigator();
-          },
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () {
+                Share.share(widget.webModel.current);
+              },
+            ),
+          ],
         ),
-      ),
-    );
-  }
-
-  void refreshNavigator() {
-    _webViewController.canGoBack().then((value) {
-      return canGoBack.value = value;
-    });
-
-    _webViewController.canGoForward().then((value) {
-      return canGoForward.value = value;
-    });
+        body: SafeArea(
+          bottom: false,
+          child: WebviewScaffold(
+            url: widget.webModel.url,
+            withJavascript: true,
+            displayZoomControls: true,
+            withZoom: true,
+            bottomNavigationBar: IconTheme(
+              data: Theme.of(context).iconTheme.copyWith(opacity: 0.8),
+              child: BottomAppBar(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: flutterWebViewPlugin.goBack,
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.arrow_forward_ios),
+                        onPressed: flutterWebViewPlugin.goForward),
+                    IconButton(
+                        icon: Icon(Icons.autorenew),
+                        onPressed: flutterWebViewPlugin.reload),
+                    IconButton(
+                      icon: Icon(Icons.language),
+                      onPressed: () {
+                        launch(widget.webModel.current, forceSafariVC: false);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
 
@@ -104,72 +120,6 @@ class WebViewTitle extends StatelessWidget {
             style: TextStyle(fontSize: 16),
           ),
         ),
-      ],
-    );
-  }
-}
-
-class WebViewPopupMenu extends StatelessWidget {
-  final WebModel webModel;
-
-  WebViewPopupMenu({this.webModel});
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (context) => <PopupMenuEntry<int>>[
-        PopupMenuItem(
-          child: WebViewPopupMenuItem(Icons.autorenew, S.of(context).refresh),
-          value: 0,
-        ),
-        PopupMenuItem(
-          child:
-              WebViewPopupMenuItem(Icons.language, S.of(context).openBrowser),
-          value: 1,
-        ),
-        PopupMenuItem(
-          child: WebViewPopupMenuItem(Icons.share, S.of(context).share),
-          value: 2,
-        ),
-      ],
-      onSelected: (value) async {
-        switch (value) {
-          case 0:
-            webModel.controller.reload();
-            break;
-          case 1:
-            launch(webModel.current, forceSafariVC: false);
-            break;
-          case 2:
-            Share.share(webModel.title + ' ' + webModel.current);
-            break;
-        }
-      },
-    );
-  }
-}
-
-class WebViewPopupMenuItem<T> extends StatelessWidget {
-  final IconData iconData;
-  final Color color;
-  final String text;
-
-  WebViewPopupMenuItem(this.iconData, this.text, {this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          iconData,
-          size: 18,
-          color: color ?? Theme.of(context).textTheme.bodyText1.color,
-        ),
-        SizedBox(
-          width: 18,
-        ),
-        Text(text),
       ],
     );
   }
