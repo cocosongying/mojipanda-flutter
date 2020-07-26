@@ -5,16 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ImageHelper {
-  static const String baseUrl = 'http://www.meetingplus.cn';
-  static const String imagePrefix = '$baseUrl/uimg/';
-
-  static String wrapUrl(String url) {
-    if (url.startsWith('http')) {
-      return url;
-    } else {}
-    return imagePrefix + url;
-  }
-
   static String wrapAssets(String url) {
     return "assets/images/" + url;
   }

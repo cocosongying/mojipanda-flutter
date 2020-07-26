@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:mojipanda/common/resource_mananger.dart';
+import 'package:mojipanda/widgets/banner_image.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:mojipanda/common/common.dart';
@@ -25,6 +28,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    var bannerHeight = MediaQuery.of(context).size.width * 5 / 11;
     return new Scaffold(
       // appBar: PreferredSize(
       //   preferredSize: Size.zero,
@@ -48,14 +52,37 @@ class _HomePageState extends State<HomePage>
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          HomeCard(
-            model: HomeCardModel('博客', 'dd', "https://mojipanda.com", '磨叽熊猫',
-                Constant.jumpTypeWeb),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(),
+          SliverAppBar(
+            flexibleSpace: FlexibleSpaceBar(
+              background: BannerWidget(),
+              centerTitle: true,
+            ),
+            expandedHeight: bannerHeight,
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return HomeCard(
+                  model: HomeCardModel('博客', 'dd', "https://mojipanda.com",
+                      '磨叽熊猫', Constant.jumpTypeWeb),
+                );
+              },
+              childCount: 1,
+            ),
           ),
         ],
       ),
+      // body: Column(
+      //   children: <Widget>[
+      //     HomeCard(
+      //       model: HomeCardModel('博客', 'dd', "https://mojipanda.com", '磨叽熊猫',
+      //           Constant.jumpTypeWeb),
+      //     ),
+      //   ],
+      // ),
     );
   }
 
@@ -72,5 +99,35 @@ class _HomePageState extends State<HomePage>
         print(e);
       }
     }
+  }
+}
+
+class BannerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+      child: Swiper(
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 5000,
+        pagination: SwiperPagination(),
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {},
+            child: BannerImage(
+              ImageHelper.randomUrl(
+                width: 300,
+                height: 80,
+                key: 'cocosongying$index',
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
