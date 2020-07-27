@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mojipanda/generated/l10n.dart';
+import 'package:mojipanda/utils/platform_util.dart';
 import 'package:mojipanda/view_model/locale_view_model.dart';
 import 'package:mojipanda/view_model/theme_view_model.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
@@ -143,10 +146,113 @@ class SettingPage extends StatelessWidget {
                   ],
                 ),
               ),
+              Material(
+                child: ListTile(
+                  title: Text('清除缓存'),
+                  onTap: () async {
+                    var cacheSize = await loadCache();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: Text('清除缓存'),
+                          content: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Align(
+                                child: Text('缓存大小：$cacheSize'),
+                                alignment: Alignment(0, 0),
+                              )
+                            ],
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text('取消'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text('确定'),
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                showToast('正在清除');
+                                await delCache();
+                                showToast('清除完成');
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  leading: Icon(
+                    Icons.delete,
+                    color: iconColor,
+                  ),
+                  trailing: Icon(Icons.chevron_right),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future loadCache() async {
+    Directory tempDir = await getTemporaryDirectory();
+    double value = await getTotalSizeOfFilesInDir(tempDir);
+    return renderSize(value);
+  }
+
+  Future delCache() async {
+    Directory tempDir = await getTemporaryDirectory();
+    await delDir(tempDir);
+  }
+
+  Future delDir(final FileSystemEntity file) async {
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      for (final FileSystemEntity child in children) {
+        await delDir(child);
+      }
+    }
+    print(file.path);
+    await file.delete();
+  }
+
+  Future getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
+    if (file is File) {
+      int length = await file.length();
+      return double.parse(length.toString());
+    }
+    if (file is Directory) {
+      final List children = file.listSync();
+      double total = 0;
+      if (children != null) {
+        for (final FileSystemEntity child in children) {
+          total += await getTotalSizeOfFilesInDir(child);
+        }
+      }
+      return total;
+    }
+    return 0;
+  }
+
+  renderSize(double value) {
+    if (value == null) {
+      return '0';
+    }
+    List<String> unitList = List()..add('B')..add('K')..add('M')..add('G');
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value /= 1024;
+    }
+    String size = value.toStringAsFixed(2);
+    return size + unitList[index];
   }
 }
