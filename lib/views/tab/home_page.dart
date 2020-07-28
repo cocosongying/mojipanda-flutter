@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:mojipanda/common/resource_mananger.dart';
 import 'package:mojipanda/widgets/banner_image.dart';
@@ -75,14 +76,34 @@ class _HomePageState extends State<HomePage>
           ),
         ],
       ),
-      // body: Column(
-      //   children: <Widget>[
-      //     HomeCard(
-      //       model: HomeCardModel('博客', 'dd', "https://mojipanda.com", '磨叽熊猫',
-      //           Constant.jumpTypeWeb),
-      //     ),
-      //   ],
-      // ),
+      floatingActionButton: SpeedDial(
+        child: Icon(Icons.menu),
+        overlayColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black
+            : Colors.white,
+        overlayOpacity: 0.5,
+        backgroundColor: Colors.blue,
+        children: [
+          SpeedDialChild(
+              child: Icon(Icons.alarm),
+              backgroundColor: Colors.red,
+              onTap: () {
+                showToast('Button 1');
+              }),
+          SpeedDialChild(
+              child: Icon(Icons.photo),
+              backgroundColor: Colors.orange,
+              onTap: () {
+                showToast('Button 2');
+              }),
+          SpeedDialChild(
+              child: Icon(Icons.videocam),
+              backgroundColor: Colors.green,
+              onTap: () {
+                showToast('Button 3');
+              }),
+        ],
+      ),
     );
   }
 
