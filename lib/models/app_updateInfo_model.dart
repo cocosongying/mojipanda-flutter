@@ -1,18 +1,19 @@
 class AppUpdateInfo {
-  String buildBuildVersion;
-  String forceUpdateVersion;
-  String forceUpdateVersionNo;
-  bool needForceUpdate;
-  String downloadURL;
-  bool buildHaveNewVersion;
-  String buildVersionNo;
-  String buildVersion;
-  String buildShortcutUrl;
-  String buildUpdateDescription;
+  String version;
+  String description;
+  bool forceUpdate;
+  String downloadUrl;
 
   AppUpdateInfo.fromJson(Map<String, dynamic> json)
-      : buildBuildVersion = json['version'];
+      : version = json['version'],
+        description = json['description'],
+        forceUpdate = json['forceUpdate'],
+        downloadUrl = json['downloadUrl'];
+
   Map<String, dynamic> toJson() => {
-    'buildBuildVersion': buildBuildVersion,
-  };
+        'version': version,
+        'description': description,
+        'forceUpdate': forceUpdate,
+        'downloadUrl': downloadUrl,
+      };
 }

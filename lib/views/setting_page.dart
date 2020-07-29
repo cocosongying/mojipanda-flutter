@@ -220,7 +220,6 @@ class SettingPage extends StatelessWidget {
         await delDir(child);
       }
     }
-    print(file.path);
     await file.delete();
   }
 

@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mojipanda/views/tab/home_page.dart';
 import 'package:mojipanda/views/tab/user_page.dart';
+import 'package:mojipanda/widgets/app_update_widget.dart';
 
 List<Widget> pages = <Widget>[
   HomePage(),
@@ -21,7 +22,7 @@ class _TabNavigatorState extends State<TabNavigator> {
 
   @override
   void initState() {
-    // checkAppUpdate(context);
+    checkAppUpdate(context);
     super.initState();
   }
 

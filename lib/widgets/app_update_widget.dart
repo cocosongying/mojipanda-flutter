@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mojipanda/api/api.dart';
 import 'package:mojipanda/generated/l10n.dart';
 import 'package:mojipanda/models/app_updateInfo_model.dart';
 import 'package:mojipanda/provider/provider_widget.dart';
@@ -26,7 +27,7 @@ class AppUpdateButton extends StatelessWidget {
               ? null
               : () async {
                   AppUpdateInfo appUpdateInfo = await model.checkUpdate();
-                  if (appUpdateInfo?.buildHaveNewVersion ?? false) {
+                  if (appUpdateInfo?.version != null ?? false) {
                     bool result =
                         await showUpdateAlertDialog(context, appUpdateInfo);
                     if (result == true) {
@@ -43,7 +44,7 @@ class AppUpdateButton extends StatelessWidget {
 Future checkAppUpdate(BuildContext context) async {
   if (!Platform.isAndroid) return;
   AppUpdateInfo appUpdateInfo = await AppUpdateViewModel().checkUpdate();
-  if (appUpdateInfo?.buildHaveNewVersion ?? false) {
+  if (appUpdateInfo?.version != null ?? false) {
     bool result = await showUpdateAlertDialog(context, appUpdateInfo);
     if (result == true) {
       downloadApp(context, appUpdateInfo);
@@ -52,7 +53,7 @@ Future checkAppUpdate(BuildContext context) async {
 }
 
 showUpdateAlertDialog(context, AppUpdateInfo appUpdateInfo) async {
-  var forceUpdate = appUpdateInfo.needForceUpdate ?? false;
+  var forceUpdate = appUpdateInfo.forceUpdate ?? false;
   return await showDialog(
     context: context,
     builder: (context) => WillPopScope(
@@ -61,9 +62,9 @@ showUpdateAlertDialog(context, AppUpdateInfo appUpdateInfo) async {
       },
       child: AlertDialog(
         title: Text(
-            S.of(context).appUpdateFoundNewVersion(appUpdateInfo.buildVersion)),
-        content: appUpdateInfo.buildUpdateDescription != null
-            ? Text(appUpdateInfo.buildUpdateDescription)
+            S.of(context).appUpdateFoundNewVersion(appUpdateInfo.version)),
+        content: appUpdateInfo.description != null
+            ? Text(appUpdateInfo.description)
             : null,
         actions: <Widget>[
           if (!forceUpdate)
@@ -89,10 +90,10 @@ showUpdateAlertDialog(context, AppUpdateInfo appUpdateInfo) async {
 }
 
 Future downloadApp(BuildContext context, AppUpdateInfo appUpdateInfo) async {
-  var url = appUpdateInfo.downloadURL;
+  var url = Api.BASE_URL + appUpdateInfo.downloadUrl;
   var extDir = await getExternalStorageDirectory();
   String apkPath =
-      '${extDir.path}/FunAndroid_${appUpdateInfo.buildVersion}_${appUpdateInfo.buildVersionNo}_${appUpdateInfo.buildBuildVersion}.apk';
+      '${extDir.path}/mojipanda_${appUpdateInfo.version}_release.apk';
   File file = File(apkPath);
   if (!file.existsSync()) {
     if (await showDownloadDialog(context, url, apkPath) ?? false) {
@@ -139,13 +140,11 @@ showDownloadDialog(context, url, path) async {
             title: Text(S.of(context).appUpdateDownloading),
             content: Builder(
               builder: (context) {
-                debugPrint('Downloader Builder');
                 ValueNotifier notifier = ValueNotifier(0.0);
                 if (!downloading) {
                   downloading = true;
                   Dio().download(url, path, cancelToken: cancelToken,
                       onReceiveProgress: (progress, total) {
-                    debugPrint('value--${progress / total}');
                     notifier.value = progress / total;
                   }).then((Response response) {
                     Navigator.pop(context, true);
