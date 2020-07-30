@@ -21,8 +21,24 @@ class _HomePageState extends State<HomePage>
   @override
   bool get wantKeepAlive => true;
 
+  List<HomeCardModel> homeCardList = [];
+
   @override
   void initState() {
+    HomeCardModel card1 = new HomeCardModel(
+        '博客',
+        '欢迎来到磨叽熊猫的主页，这里有精心制作的博客以及各种好玩的。mojipanda ～\n',
+        "https://mojipanda.com",
+        '磨叽熊猫',
+        Constant.jumpTypeWeb);
+    HomeCardModel card2 = new HomeCardModel('阅读', '唐诗，宋词，三字经。。。',
+        "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypeWeb);
+    HomeCardModel card3 = new HomeCardModel('阅读', '唐诗，宋词，三字经。。。',
+        "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypeWeb);
+    homeCardList.add(card1);
+    homeCardList.add(card2);
+    homeCardList.add(card3);
+
     super.initState();
   }
 
@@ -31,47 +47,41 @@ class _HomePageState extends State<HomePage>
     super.build(context);
     var bannerHeight = MediaQuery.of(context).size.width * 5 / 11;
     return new Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: Size.zero,
-      //   child: AppBar(),
-      // ),
-      appBar: AppBar(
-        title: Text(
-          '磨叽熊猫',
-          style: TextStyle(fontSize: 16),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.filter_center_focus),
-            onPressed: () {
-              scan();
-            },
-          ),
-        ],
-      ),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(),
           SliverAppBar(
+            title: Text(
+              '磨叽熊猫',
+              style: TextStyle(fontSize: 16),
+            ),
             flexibleSpace: FlexibleSpaceBar(
               background: BannerWidget(),
               centerTitle: true,
             ),
             expandedHeight: bannerHeight,
+            pinned: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.filter_center_focus),
+                onPressed: () {
+                  scan();
+                },
+              ),
+            ],
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return HomeCard(
-                  model: HomeCardModel('博客', 'dd', "https://mojipanda.com",
-                      '磨叽熊猫', Constant.jumpTypeWeb),
+                  model: homeCardList[index],
                 );
               },
-              childCount: 1,
+              childCount: homeCardList?.length ?? 0,
             ),
           ),
         ],
