@@ -82,7 +82,6 @@ class _HomePageState extends State<HomePage>
             ? Colors.black
             : Colors.white,
         overlayOpacity: 0.5,
-        backgroundColor: Colors.blue,
         children: [
           SpeedDialChild(
               child: Icon(Icons.alarm),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mojipanda/views/tab/home_page.dart';
 import 'package:mojipanda/views/tab/user_page.dart';
 import 'package:mojipanda/widgets/app_update_widget.dart';
+import 'package:oktoast/oktoast.dart';
 
 List<Widget> pages = <Widget>[
   HomePage(),
@@ -41,6 +42,7 @@ class _TabNavigatorState extends State<TabNavigator> {
               DateTime.now().difference(_lastPressed) > Duration(seconds: 1)) {
             //两次点击间隔超过1秒则重新计时
             _lastPressed = DateTime.now();
+            showToast('再次点击返回键退出App', position: ToastPosition.bottom);
             return false;
           }
           return true;
