@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mojipanda/common/common.dart';
 import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/models/home_card_model.dart';
 import 'package:mojipanda/models/web_model.dart';
@@ -26,12 +27,12 @@ class _HomeCardState extends State<HomeCard> {
         //     fullscreenDialog: true,
         //   ),
         // );
-        Navigator.of(context).pushNamed(
-          RouteName.web,
-          arguments: WebModel()
-            ..title = widget.model.label
-            ..url = widget.model.url
-        );
+        widget.model.type == Constant.jumpTypePage
+            ? Navigator.of(context).pushNamed(RouteName.fun)
+            : Navigator.of(context).pushNamed(RouteName.web,
+                arguments: WebModel()
+                  ..title = widget.model.label
+                  ..url = widget.model.url);
       },
       child: Card(
         color: Theme.of(context).cardColor,
@@ -56,8 +57,8 @@ class _HomeCardState extends State<HomeCard> {
               ),
             ),
             new Divider(
-              // color: Colors.white,
-            ),
+                // color: Colors.white,
+                ),
             ListTile(
               subtitle: Text(
                 widget.model.content,

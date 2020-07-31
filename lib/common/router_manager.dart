@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mojipanda/models/web_model.dart';
+import 'package:mojipanda/views/fun/fun_list_page.dart';
 import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
 import 'package:mojipanda/views/splash.dart';
@@ -14,6 +15,7 @@ class RouteName {
   static const String login = 'login';
   static const String web = 'web';
   static const String setting = 'setting';
+  static const String fun = 'fun';
 }
 
 class Router {
@@ -37,6 +39,8 @@ class Router {
         });
       case RouteName.setting:
         return CupertinoPageRoute(builder: (_) => SettingPage());
+      case RouteName.fun:
+        return CupertinoPageRoute(builder: (_) => FunListPage());
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

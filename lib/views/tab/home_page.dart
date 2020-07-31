@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage>
         '磨叽熊猫',
         Constant.jumpTypeWeb);
     HomeCardModel card2 = new HomeCardModel('阅读', '唐诗，宋词，三字经。。。',
-        "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypeWeb);
+        "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypePage);
     HomeCardModel card3 = new HomeCardModel('阅读', '唐诗，宋词，三字经。。。',
         "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypeWeb);
     homeCardList.add(card1);
