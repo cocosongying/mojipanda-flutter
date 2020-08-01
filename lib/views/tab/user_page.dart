@@ -102,6 +102,13 @@ class UserHeaderWidget extends StatelessWidget {
                       model.hasUser
                           ? model.user.userInfo.nickname
                           : S.of(context).toSignIn,
+                      style: TextStyle(
+                          color: Theme.of(context)
+                                      .primaryColor
+                                      .computeLuminance() <
+                                  0.5
+                              ? Colors.white
+                              : Colors.black),
                     ),
                     SizedBox(
                       height: 10,
