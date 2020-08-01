@@ -5,4 +5,6 @@ class Api {
   static const String VERSION = BASE_API_URL + "app/getVersion?name=mp-apk";
   static const String CHECK_VERSION = BASE_API_URL + "app/checkVersion";
   static const String LOGIN = BASE_API_URL + "user/login";
+
+  static const String BLOG_CATEGORY = BASE_API_URL + "blog/category";
 }

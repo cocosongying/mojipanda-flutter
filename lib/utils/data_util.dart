@@ -1,5 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mojipanda/models/app_updateInfo_model.dart';
+import 'package:mojipanda/models/tree_model.dart';
 import 'package:mojipanda/models/userinfo_model.dart';
 
 import 'net_util.dart';
@@ -25,6 +26,13 @@ class DataUtil {
       return appUpdateInfo;
     }
     return null;
+  }
+
+  static Future getBlogCategories() async {
+    var result = await NetUtil.get(Api.BLOG_CATEGORY);
+    if (checkResult(result)) {
+      return result['data'].map<Tree>((item) => Tree.fromJsonMap(item)).toList();
+    }
   }
 
   static bool checkResult(var result) {

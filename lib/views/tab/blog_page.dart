@@ -117,10 +117,10 @@ class CategoryDropdownWidget extends StatelessWidget {
             child: DropdownButton(
           elevation: 0,
           value: currentIndex,
-          style: Theme.of(context).primaryTextTheme.headline3,
+          style: Theme.of(context).primaryTextTheme.subtitle2,
           items: List.generate(model.list.length, (index) {
             var theme = Theme.of(context);
-            var subhead = theme.primaryTextTheme.headline3;
+            var subhead = theme.primaryTextTheme.subtitle2;
             return DropdownMenuItem(
               value: index,
               child: Text(
