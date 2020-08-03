@@ -24,13 +24,13 @@ class AppUpdateViewModel extends ViewStateModel {
     try {
       var appVersion = await PlatformUtils.getAppVersion();
       Map<String, String> params = {
-      'name': 'mp-apk',
-      'version': appVersion,
-    };
+        'name': 'mp-apk',
+        'version': appVersion,
+      };
       appUpdateInfo = await DataUtil.checkUpdate(params);
       setIdle();
     } catch (e, s) {
-      setError(e,s);
+      setError(e, s);
     }
     return appUpdateInfo;
   }

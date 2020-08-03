@@ -7,4 +7,5 @@ class Api {
   static const String LOGIN = BASE_API_URL + "user/login";
 
   static const String BLOG_CATEGORY = BASE_API_URL + "blog/category";
+  static const String BLOG_LIST = BASE_API_URL + "blog/list";
 }

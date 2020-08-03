@@ -39,8 +39,8 @@ class _BlogPageState extends State<BlogPage>
     super.build(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: StatusBarUtil.systemUiOverlayStyle(context),
-      child: ProviderWidget<BlogCategoryModel>(
-        model: BlogCategoryModel(),
+      child: ProviderWidget<BlogCategoryViewModel>(
+        model: BlogCategoryViewModel(),
         onModelReady: (model) {
           model.initData();
         },
@@ -71,7 +71,7 @@ class _BlogPageState extends State<BlogPage>
                     title: Stack(
                       children: [
                         CategoryDropdownWidget(
-                            Provider.of<BlogCategoryModel>(context)),
+                            Provider.of<BlogCategoryViewModel>(context)),
                         Container(
                           margin: const EdgeInsets.only(right: 25),
                           color: primaryColor.withOpacity(1),

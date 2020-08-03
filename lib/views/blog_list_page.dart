@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mojipanda/models/article_model.dart';
 import 'package:mojipanda/provider/provider_widget.dart';
 import 'package:mojipanda/provider/view_state_widget.dart';
-import 'package:mojipanda/view_model/structure_view_model.dart';
+import 'package:mojipanda/view_model/blog_view_model.dart';
 import 'package:mojipanda/widgets/blog_item_widget.dart';
 import 'package:mojipanda/widgets/blog_skeleton_widget.dart';
 import 'package:mojipanda/widgets/skeleton_widget.dart';
@@ -24,8 +24,8 @@ class _BlogListPageState extends State<BlogListPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ProviderWidget<StructureListViewModel>(
-        model: StructureListViewModel(widget.cid),
+    return ProviderWidget<BlogListViewModel>(
+        model: BlogListViewModel(widget.cid),
         onModelReady: (model) => model.initData(),
         builder: (context, model, child) {
           if (model.isBusy) {
