@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mojipanda/models/article_model.dart';
+import 'package:mojipanda/models/blog_model.dart';
 import 'package:mojipanda/models/web_model.dart';
 import 'package:mojipanda/views/blog_detail_page.dart';
 import 'package:mojipanda/views/fun/fun_list_page.dart';
@@ -34,10 +34,10 @@ class Router {
           builder: (_) => LoginPage(),
         );
       case RouteName.blogDetail:
-        var article = settings.arguments as Article;
+        var blog = settings.arguments as Blog;
         return CupertinoPageRoute(builder: (_) {
           return BlogDetailPage(
-            article: article,
+            blog: blog,
           );
         });
       case RouteName.web:

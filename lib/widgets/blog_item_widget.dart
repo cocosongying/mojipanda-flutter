@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:mojipanda/common/router_manager.dart';
-import 'package:mojipanda/models/article_model.dart';
+import 'package:mojipanda/models/blog_model.dart';
 import 'package:mojipanda/widgets/wrapper_image_widget.dart';
 
 class BlogItemWidget extends StatelessWidget {
-  final Article article;
+  final Blog blog;
   final int index;
   final GestureTapCallback onTap;
   final bool top;
 
-  BlogItemWidget(this.article, {this.index, this.onTap, this.top: false})
-      : super(key: ValueKey(article.id));
+  BlogItemWidget(this.blog, {this.index, this.onTap, this.top: false})
+      : super(key: ValueKey(blog.id));
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class BlogItemWidget extends StatelessWidget {
             onTap: onTap ??
                 () {
                   Navigator.of(context)
-                      .pushNamed(RouteName.blogDetail, arguments: article);
+                      .pushNamed(RouteName.blogDetail, arguments: blog);
                 },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
@@ -45,7 +45,7 @@ class BlogItemWidget extends StatelessWidget {
                       ClipOval(
                         child: WrapperImage(
                           imageType: ImageType.random,
-                          url: article.author,
+                          url: blog.author,
                           height: 20,
                           width: 20,
                         ),
@@ -53,21 +53,21 @@ class BlogItemWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
-                          article.author ?? '',
+                          blog.author ?? '',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ),
                       Expanded(
                         child: SizedBox.shrink(),
                       ),
-                      Text(article.niceDate,
+                      Text(blog.niceDate,
                           style: Theme.of(context).textTheme.caption),
                     ],
                   ),
-                  if (article.envelopePic.isEmpty)
+                  if (blog.envelopePic.isEmpty)
                     Padding(
                       padding: EdgeInsets.only(top: 7),
-                      child: BlogTitleWidget(article.title),
+                      child: BlogTitleWidget(blog.title),
                     )
                   else
                     Row(
@@ -77,12 +77,12 @@ class BlogItemWidget extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              BlogTitleWidget(article.title),
+                              BlogTitleWidget(blog.title),
                               SizedBox(
                                 height: 2,
                               ),
                               Text(
-                                article.desc,
+                                blog.desc,
                                 style: Theme.of(context).textTheme.caption,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
@@ -94,7 +94,7 @@ class BlogItemWidget extends StatelessWidget {
                           width: 5,
                         ),
                         WrapperImage(
-                          url: article.envelopePic,
+                          url: blog.envelopePic,
                           height: 60,
                           width: 60,
                         ),

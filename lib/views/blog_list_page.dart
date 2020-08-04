@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mojipanda/models/article_model.dart';
+import 'package:mojipanda/models/blog_model.dart';
 import 'package:mojipanda/provider/provider_widget.dart';
 import 'package:mojipanda/provider/view_state_widget.dart';
 import 'package:mojipanda/view_model/blog_view_model.dart';
@@ -48,7 +48,7 @@ class _BlogListPageState extends State<BlogListPage>
             child: ListView.builder(
                 itemCount: model.list.length,
                 itemBuilder: (context, index) {
-                  Article item = model.list[index];
+                  Blog item = model.list[index];
                   return BlogItemWidget(item);
                 }),
           );

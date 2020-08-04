@@ -1,6 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mojipanda/models/app_updateInfo_model.dart';
-import 'package:mojipanda/models/article_model.dart';
+import 'package:mojipanda/models/blog_model.dart';
 import 'package:mojipanda/models/tree_model.dart';
 import 'package:mojipanda/models/userinfo_model.dart';
 
@@ -44,7 +44,7 @@ class DataUtil {
     print(result);
     if (checkResult(result)) {
       return result['data']['list']
-          .map<Article>((item) => Article.fromJsonMap(item))
+          .map<Blog>((item) => Blog.fromJsonMap(item))
           .toList();
     }
   }
