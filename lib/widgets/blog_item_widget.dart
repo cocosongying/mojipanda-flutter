@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/models/article_model.dart';
 import 'package:mojipanda/widgets/wrapper_image_widget.dart';
 
@@ -25,8 +26,8 @@ class BlogItemWidget extends StatelessWidget {
           child: InkWell(
             onTap: onTap ??
                 () {
-                  // Navigator.of(context)
-                  //     .pushNamed(RouteName.articleDetail, arguments: article);
+                  Navigator.of(context)
+                      .pushNamed(RouteName.blogDetail, arguments: article);
                 },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),

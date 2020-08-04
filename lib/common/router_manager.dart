@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mojipanda/models/article_model.dart';
 import 'package:mojipanda/models/web_model.dart';
+import 'package:mojipanda/views/blog_detail_page.dart';
 import 'package:mojipanda/views/fun/fun_list_page.dart';
 import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
@@ -16,6 +18,7 @@ class RouteName {
   static const String web = 'web';
   static const String setting = 'setting';
   static const String fun = 'fun';
+  static const String blogDetail = 'blogDetail';
 }
 
 class Router {
@@ -30,6 +33,13 @@ class Router {
           fullscreenDialog: true,
           builder: (_) => LoginPage(),
         );
+      case RouteName.blogDetail:
+        var article = settings.arguments as Article;
+        return CupertinoPageRoute(builder: (_) {
+          return BlogDetailPage(
+            article: article,
+          );
+        });
       case RouteName.web:
         var webModel = settings.arguments as WebModel;
         return CupertinoPageRoute(builder: (_) {
