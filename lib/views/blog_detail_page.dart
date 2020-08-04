@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mojipanda/models/blog_model.dart';
-import 'package:mojipanda/views/web_detail_page.dart';
+import 'package:mojipanda/widgets/webview_title.dart';
 import 'package:share/share.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
