@@ -14,6 +14,7 @@ class BlogDetailPage extends StatefulWidget {
 }
 
 class _BlogDetailPageState extends State<BlogDetailPage> {
+  WebViewController _webViewController;
   Completer<bool> _finishedCompleter = Completer();
 
   @override
@@ -25,12 +26,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
           future: _finishedCompleter.future,
         ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {
-              Share.share(widget.blog.link);
-            },
-          ),
+          WebViewPopupMenu(_webViewController, widget.blog),
         ],
       ),
       body: SafeArea(
@@ -47,5 +43,57 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
       ),
     );
   }
-  //
+}
+
+class WebViewPopupMenu extends StatelessWidget {
+  final WebViewController controller;
+  final Blog blog;
+  WebViewPopupMenu(this.controller, this.blog);
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: (context) => <PopupMenuEntry<int>>[
+        PopupMenuItem(
+          child: WebViewPopupMenuItem(Icons.share, '分享'),
+          value: 2,
+        ),
+      ],
+      onSelected: (value) async {
+        switch (value) {
+          case 0:
+            break;
+          case 1:
+            break;
+          case 2:
+            Share.share(blog.link);
+            break;
+        }
+      },
+    );
+  }
+}
+
+class WebViewPopupMenuItem<T> extends StatelessWidget {
+  final IconData iconData;
+  final String text;
+  WebViewPopupMenuItem(this.iconData, this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          iconData,
+          size: 20,
+          color: Theme.of(context).textTheme.bodyText1.color,
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Text(text),
+      ],
+    );
+  }
 }
