@@ -1,3 +1,5 @@
+import 'package:webview_flutter/webview_flutter.dart';
+
 class Blog {
   int id;
   String link;
@@ -6,6 +8,7 @@ class Blog {
   String niceDate;
   String envelopePic;
   String desc;
+  WebViewController controller;
 
   static Blog fromJsonMap(Map<String, dynamic> map) {
     if (map == null) {

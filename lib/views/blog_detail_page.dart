@@ -14,7 +14,6 @@ class BlogDetailPage extends StatefulWidget {
 }
 
 class _BlogDetailPageState extends State<BlogDetailPage> {
-  WebViewController _webViewController;
   Completer<bool> _finishedCompleter = Completer();
 
   @override
@@ -26,7 +25,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
           future: _finishedCompleter.future,
         ),
         actions: <Widget>[
-          WebViewPopupMenu(_webViewController, widget.blog),
+          WebViewPopupMenu(widget.blog),
         ],
       ),
       body: SafeArea(
@@ -34,6 +33,9 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
         child: WebView(
           initialUrl: widget.blog.link,
           javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController controller) {
+            widget.blog.controller = controller;
+          },
           onPageFinished: (String value) async {
             if (!_finishedCompleter.isCompleted) {
               _finishedCompleter.complete(true);
@@ -46,9 +48,8 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
 }
 
 class WebViewPopupMenu extends StatelessWidget {
-  final WebViewController controller;
   final Blog blog;
-  WebViewPopupMenu(this.controller, this.blog);
+  WebViewPopupMenu(this.blog);
 
   @override
   Widget build(BuildContext context) {
@@ -56,17 +57,22 @@ class WebViewPopupMenu extends StatelessWidget {
       itemBuilder: (context) => <PopupMenuEntry<int>>[
         PopupMenuItem(
           child: WebViewPopupMenuItem(Icons.share, '分享'),
-          value: 2,
+          value: 0,
+        ),
+        PopupMenuItem(
+          child: WebViewPopupMenuItem(Icons.refresh, '刷新'),
+          value: 1,
         ),
       ],
       onSelected: (value) async {
         switch (value) {
           case 0:
+            Share.share(blog.link);
             break;
           case 1:
+            blog.controller.reload();
             break;
           case 2:
-            Share.share(blog.link);
             break;
         }
       },
