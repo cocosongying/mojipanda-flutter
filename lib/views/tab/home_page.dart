@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:mojipanda/common/resource_mananger.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/widgets/banner_image.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
@@ -31,8 +32,8 @@ class _HomePageState extends State<HomePage>
         "https://mojipanda.com",
         '磨叽熊猫',
         Constant.jumpTypeWeb);
-    HomeCardModel card2 = new HomeCardModel('阅读', '唐诗，宋词，三字经。。。',
-        "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypePage);
+    HomeCardModel card2 = new HomeCardModel(
+        '娱乐', '小游戏', RouteName.fun, '磨叽熊猫', Constant.jumpTypePage);
     HomeCardModel card3 = new HomeCardModel('阅读', '唐诗，宋词，三字经。。。',
         "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypeWeb);
     homeCardList.add(card1);

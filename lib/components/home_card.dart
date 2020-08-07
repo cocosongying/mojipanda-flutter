@@ -18,17 +18,8 @@ class _HomeCardState extends State<HomeCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // 暂时只有一个页面
-        // Navigator.push(
-        //   context,
-        //   CupertinoPageRoute(
-        //     builder: (context) =>
-        //         WebViewPage(widget.model.url, widget.model.label),
-        //     fullscreenDialog: true,
-        //   ),
-        // );
         widget.model.type == Constant.jumpTypePage
-            ? Navigator.of(context).pushNamed(RouteName.fun)
+            ? Navigator.of(context).pushNamed(widget.model.url)
             : Navigator.of(context).pushNamed(RouteName.web,
                 arguments: WebModel()
                   ..title = widget.model.label
