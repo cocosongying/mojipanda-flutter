@@ -60,8 +60,6 @@ class App extends StatelessWidget {
                       theme: themeViewModel.brightnessIndex == 1
                           ? themeViewModel.themeData()
                           : themeViewModel.themeData(platformDarkMode: true),
-                      // theme: themeViewModel.darkMode == 0 ? themeViewModel.themeData() : themeViewModel.themeData(platformDarkMode: true),
-                      // darkTheme: themeViewModel.themeData(platformDarkMode: true),
                       locale: localeViewModel.locale,
                       localizationsDelegates: const [
                         S.delegate,
