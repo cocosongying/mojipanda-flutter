@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:mojipanda/generated/l10n.dart';
+import 'package:mojipanda/provider/view_state_widget.dart';
 import 'package:mojipanda/widgets/app_update_widget.dart';
 import 'package:package_info/package_info.dart';
 
@@ -113,7 +114,7 @@ class _ChangeLogViewState extends State<ChangeLogView> {
   @override
   Widget build(BuildContext context) {
     if (_changelog == null) {
-      // return ViewStateBusyWidget();
+      return ViewStateBusyWidget();
     }
     return Markdown(data: _changelog);
   }
