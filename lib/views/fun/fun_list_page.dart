@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mojipanda/common/resource_mananger.dart';
+import 'package:mojipanda/common/router_manager.dart';
+import 'package:mojipanda/models/web_model.dart';
 import 'package:mojipanda/widgets/banner_image.dart';
 
 class FunListPage extends StatefulWidget {
@@ -8,7 +10,11 @@ class FunListPage extends StatefulWidget {
 }
 
 class _FunListPageState extends State<FunListPage> {
-  List<String> funs = ['a', 'b'];
+  List<String> funs = ['魔方', 'b'];
+  List<String> funUrls = [
+    'https://mojipanda.com/play/cube3v.html',
+    'https://mojipanda.com/fun/'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +52,12 @@ class _FunListPageState extends State<FunListPage> {
                     maxLines: 1, overflow: TextOverflow.ellipsis),
               ),
             ], crossAxisAlignment: CrossAxisAlignment.start),
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteName.web,
+                  arguments: WebModel()
+                    ..title = funs[index]
+                    ..url = funUrls[index]);
+            },
           ),
         );
       },
