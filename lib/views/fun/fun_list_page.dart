@@ -10,10 +10,11 @@ class FunListPage extends StatefulWidget {
 }
 
 class _FunListPageState extends State<FunListPage> {
-  List<String> funs = ['魔方', 'b'];
+  List<String> funs = ['魔方', '井字棋', '管道工'];
   List<String> funUrls = [
     'https://mojipanda.com/play/cube3v.html',
-    'https://mojipanda.com/fun/'
+    'https://mojipanda.com/play/tictactoe.html',
+    'https://mojipanda.com/play/plumber.html'
   ];
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _FunListPageState extends State<FunListPage> {
               ),
             ], crossAxisAlignment: CrossAxisAlignment.start),
             onTap: () {
-              Navigator.of(context).pushNamed(RouteName.web,
+              Navigator.of(context).pushNamed(RouteName.webView,
                   arguments: WebModel()
                     ..title = funs[index]
                     ..url = funUrls[index]);

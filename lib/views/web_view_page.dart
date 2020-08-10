@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:mojipanda/models/web_model.dart';
 
 class WebViewPage extends StatefulWidget {
-  final String url;
-  final String title;
+  final WebModel webModel;
 
-  WebViewPage(this.url, this.title);
+  WebViewPage({this.webModel});
 
   @override
   _WebViewPageState createState() => new _WebViewPageState();
 }
 
 class _WebViewPageState extends State<WebViewPage> {
-  // final flutterWebviewPlugin = new FlutterWebviewPlugin();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -28,10 +25,8 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      // appBar: AppBar(title: Text(widget.title)),
       body: WebviewScaffold(
-        url: widget.url,
+        url: widget.webModel.url,
         withZoom: false,
         withLocalStorage: true,
         withJavascript: true,

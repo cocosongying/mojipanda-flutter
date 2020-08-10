@@ -9,6 +9,7 @@ import 'package:mojipanda/views/setting_page.dart';
 import 'package:mojipanda/views/splash.dart';
 import 'package:mojipanda/views/tab/tab_navigator.dart';
 import 'package:mojipanda/views/web_detail_page.dart';
+import 'package:mojipanda/views/web_view_page.dart';
 import 'package:mojipanda/widgets/page_route_anim.dart';
 
 class RouteName {
@@ -16,6 +17,7 @@ class RouteName {
   static const String tab = '/';
   static const String login = 'login';
   static const String web = 'web';
+  static const String webView = 'webView';
   static const String setting = 'setting';
   static const String fun = 'fun';
   static const String blogDetail = 'blogDetail';
@@ -44,6 +46,13 @@ class Router {
         var webModel = settings.arguments as WebModel;
         return CupertinoPageRoute(builder: (_) {
           return WebDetailPage(
+            webModel: webModel,
+          );
+        });
+      case RouteName.webView:
+        var webModel = settings.arguments as WebModel;
+        return CupertinoPageRoute(builder: (_) {
+          return WebViewPage(
             webModel: webModel,
           );
         });
