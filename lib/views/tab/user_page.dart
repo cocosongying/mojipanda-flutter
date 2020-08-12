@@ -128,10 +128,24 @@ class UserListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var iconColor = Theme.of(context).accentColor;
+    var model = Provider.of<UserViewModel>(context, listen: false);
     return ListTileTheme(
       contentPadding: const EdgeInsets.symmetric(horizontal: 30),
       child: SliverList(
         delegate: SliverChildListDelegate([
+          model.hasUser
+              ? ListTile(
+                  title: Text("网址收藏"),
+                  onTap: () {
+                    //
+                  },
+                  leading: Icon(
+                    Icons.favorite,
+                    color: iconColor,
+                  ),
+                  trailing: Icon(Icons.chevron_right),
+                )
+              : SizedBox(),
           SettingThemeWidget(),
           ListTile(
             title: Text(S.of(context).setting),
