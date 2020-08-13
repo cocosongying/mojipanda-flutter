@@ -43,7 +43,26 @@ class _UserPageState extends State<UserPage>
                       tooltip: S.of(context).logout,
                       icon: Icon(Icons.exit_to_app),
                       onPressed: () {
-                        model.logout();
+                        showDialog(
+                            context: context,
+                            builder: (context) => CupertinoAlertDialog(
+                                  title: Text("退出登录?"),
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      child: Text('取消'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    CupertinoDialogAction(
+                                      child: Text('确定'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        model.logout();
+                                      },
+                                    ),
+                                  ],
+                                ));
                       },
                     );
                   }
