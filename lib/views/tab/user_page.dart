@@ -165,6 +165,19 @@ class UserListWidget extends StatelessWidget {
                   trailing: Icon(Icons.chevron_right),
                 )
               : SizedBox(),
+          model.hasUser
+              ? ListTile(
+                  title: Text("我的卡包"),
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.cardList);
+                  },
+                  leading: Icon(
+                    Icons.card_membership,
+                    color: iconColor,
+                  ),
+                  trailing: Icon(Icons.chevron_right),
+                )
+              : SizedBox(),
           SettingThemeWidget(),
           ListTile(
             title: Text(S.of(context).setting),
