@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mojipanda/models/blog_model.dart';
+import 'package:mojipanda/models/card_model.dart';
 import 'package:mojipanda/models/web_model.dart';
 import 'package:mojipanda/views/blog_detail_page.dart';
-import 'package:mojipanda/views/card_list_page.dart';
+import 'package:mojipanda/views/card/card_detail_page.dart';
+import 'package:mojipanda/views/card/card_list_page.dart';
 import 'package:mojipanda/views/fun/fun_list_page.dart';
 import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
@@ -23,6 +25,7 @@ class RouteName {
   static const String fun = 'fun';
   static const String blogDetail = 'blogDetail';
   static const String cardList = 'cardList';
+  static const String cardDetail = 'cardDetail';
 }
 
 class Router {
@@ -64,6 +67,13 @@ class Router {
         return CupertinoPageRoute(builder: (_) => FunListPage());
       case RouteName.cardList:
         return CupertinoPageRoute(builder: (_) => CardListPage());
+      case RouteName.cardDetail:
+        var cardModel = settings.arguments as CardModel;
+        return CupertinoPageRoute(builder: (_) {
+          return CardDetailPage(
+            card: cardModel,
+          );
+        });
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(
