@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mojipanda/models/card_model.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class CardDetailPage extends StatefulWidget {
   final CardModel card;
@@ -21,10 +22,22 @@ class _CardDetailPageState extends State<CardDetailPage> {
       body: Container(
         child: Card(
           child: Container(
-            child: ListTile(
-              title: Text(widget.card.number),
-            ),
-          ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                ListTile(
+                  title: Text(
+                    widget.card.number,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Center(
+                  child: QrImage(
+                    data: widget.card.number,
+                    size: 200.0,
+                  ),
+                ),
+              ])),
         ),
       ),
     );
