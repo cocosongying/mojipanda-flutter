@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/models/card_model.dart';
+import 'package:oktoast/oktoast.dart';
 
 class CardListPage extends StatefulWidget {
   _CardListPageState createState() => _CardListPageState();
@@ -49,6 +51,12 @@ class _CardListPageState extends State<CardListPage> {
                 )),
           ),
         ]),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          showToast('add');
+        },
       ),
     );
   }
