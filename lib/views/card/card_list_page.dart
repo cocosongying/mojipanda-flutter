@@ -54,7 +54,7 @@ class _CardListPageState extends State<CardListPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          showToast('add');
+          Navigator.of(context).pushNamed(RouteName.cardEdit);
         },
       ),
     );
