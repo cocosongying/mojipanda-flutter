@@ -8,6 +8,12 @@ class _CardEditPageState extends State<CardEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "卡包",
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
       body: Container(
         child: Column(
           children: <Widget>[

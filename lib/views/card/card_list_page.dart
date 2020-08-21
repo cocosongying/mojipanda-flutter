@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/models/card_model.dart';
+import 'package:mojipanda/views/card/card_edit_page.dart';
 import 'package:oktoast/oktoast.dart';
 
 class CardListPage extends StatefulWidget {
@@ -54,7 +56,14 @@ class _CardListPageState extends State<CardListPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteName.cardEdit);
+          // Navigator.of(context).pushNamed(RouteName.cardEdit);
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => CardEditPage(),
+              fullscreenDialog: true,
+            ),
+          );
         },
       ),
     );
