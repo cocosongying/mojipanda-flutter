@@ -1,14 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mojipanda/models/card_model.dart';
 import 'package:oktoast/oktoast.dart';
 
 class CardEditPage extends StatefulWidget {
+  final CardModel card;
+  CardEditPage({this.card});
+  @override
   _CardEditPageState createState() => _CardEditPageState();
 }
 
 class _CardEditPageState extends State<CardEditPage> {
   final _titleController = TextEditingController();
   final _numberController = TextEditingController();
+
+  @override
+  void initState() {
+    _titleController.text = widget.card.title;
+    _numberController.text = widget.card.number;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,5 +79,6 @@ class _CardEditPageState extends State<CardEditPage> {
     var title = _titleController.text;
     var number = _numberController.text;
     showToast(title + number);
+    Navigator.of(context).pop();
   }
 }

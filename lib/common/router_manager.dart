@@ -77,7 +77,11 @@ class Router {
           );
         });
       case RouteName.cardEdit:
-        return CupertinoPageRoute(builder: (_) => CardEditPage());
+        var cardModel = settings.arguments as CardModel;
+        return CupertinoPageRoute(
+            builder: (_) => CardEditPage(
+                  card: cardModel,
+                ));
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/models/card_model.dart';
 import 'package:mojipanda/views/card/card_edit_page.dart';
-import 'package:oktoast/oktoast.dart';
 
 class CardListPage extends StatefulWidget {
   _CardListPageState createState() => _CardListPageState();
@@ -14,7 +13,7 @@ class _CardListPageState extends State<CardListPage> {
 
   @override
   void initState() {
-    CardModel card = CardModel("测试", "123456");
+    CardModel card = CardModel(id: 1, title: "测试", number: "123456");
     cardList.add(card);
     super.initState();
   }
@@ -27,7 +26,7 @@ class _CardListPageState extends State<CardListPage> {
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(RouteName.cardDetail,
-                  arguments: CardModel("测试", "123456"));
+                  arguments: CardModel(id: 1, title: "测试", number: "123456"));
             },
             child: Card(
                 color: Colors.blueAccent,
@@ -60,7 +59,9 @@ class _CardListPageState extends State<CardListPage> {
           Navigator.push(
             context,
             CupertinoPageRoute(
-              builder: (context) => CardEditPage(),
+              builder: (context) => CardEditPage(
+                card: CardModel(),
+              ),
               fullscreenDialog: true,
             ),
           );

@@ -1,6 +1,7 @@
 class CardModel {
+  int id;
   String title;
   String number;
 
-  CardModel(this.title, this.number);
+  CardModel({this.id, this.title, this.number});
 }
