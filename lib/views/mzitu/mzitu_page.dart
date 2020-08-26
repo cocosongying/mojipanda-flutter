@@ -5,6 +5,7 @@ import 'package:mojipanda/provider/provider_widget.dart';
 import 'package:mojipanda/provider/view_state_widget.dart';
 import 'package:mojipanda/utils/status_bar_util.dart';
 import 'package:mojipanda/view_model/mzitu_view_model.dart';
+import 'package:mojipanda/views/mzitu/mzitu_grid_page.dart';
 import 'package:mojipanda/views/tab/blog_page.dart';
 import 'package:provider/provider.dart';
 
@@ -86,10 +87,10 @@ class _MzituPageState extends State<MzituPage>
                       ],
                     ),
                   ),
-                  // body: TabBarView(
-                  //   children: List.generate(treeList.length,
-                  //       (index) => BlogListPage(treeList[index].id)),
-                  // ),
+                  body: TabBarView(
+                    children: List.generate(treeList.length,
+                        (index) => MzituGridPage(treeList[index].id)),
+                  ),
                 );
               }),
             ),
