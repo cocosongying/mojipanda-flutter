@@ -9,6 +9,7 @@ import 'package:mojipanda/views/card/card_edit_page.dart';
 import 'package:mojipanda/views/card/card_list_page.dart';
 import 'package:mojipanda/views/fun/fun_list_page.dart';
 import 'package:mojipanda/views/login_page.dart';
+import 'package:mojipanda/views/mzitu/mzitu_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
 import 'package:mojipanda/views/splash.dart';
 import 'package:mojipanda/views/tab/tab_navigator.dart';
@@ -24,6 +25,7 @@ class RouteName {
   static const String webView = 'webView';
   static const String setting = 'setting';
   static const String fun = 'fun';
+  static const String mzitu = 'mzitu';
   static const String blogDetail = 'blogDetail';
   static const String cardList = 'cardList';
   static const String cardDetail = 'cardDetail';
@@ -82,6 +84,8 @@ class Router {
             builder: (_) => CardEditPage(
                   card: cardModel,
                 ));
+      case RouteName.mzitu:
+        return CupertinoPageRoute(builder: (_) => MzituPage());
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(
