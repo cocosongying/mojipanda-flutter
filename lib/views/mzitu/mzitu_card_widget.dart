@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:oktoast/oktoast.dart';
 
 class MzituCard extends StatelessWidget {
@@ -12,6 +13,7 @@ class MzituCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         showToast("点击了");
+        Navigator.of(context).pushNamed(RouteName.mzituPhoto);
       },
       child: Card(
         child: Column(
