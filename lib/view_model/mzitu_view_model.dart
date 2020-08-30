@@ -1,5 +1,8 @@
+import 'package:mojipanda/models/mzitu_model.dart';
 import 'package:mojipanda/models/tree_model.dart';
 import 'package:mojipanda/provider/view_state_list_model.dart';
+import 'package:mojipanda/provider/view_state_refresh_list_model.dart';
+import 'package:mojipanda/utils/data_util.dart';
 
 class MzituCategoryViewModel extends ViewStateListModel<Tree> {
   @override
@@ -13,5 +16,24 @@ class MzituCategoryViewModel extends ViewStateListModel<Tree> {
     Tree t6 = Tree(6, '街拍美女', 6, 1);
     List<Tree> list = [t0, t1, t2, t3, t4, t5, t6];
     return list;
+  }
+}
+
+class MzituListViewModel extends ViewStateRefreshListModel<Mzitu> {
+  final int type;
+  MzituListViewModel(this.type);
+
+  @override
+  Future<List<Mzitu>> loadData({int pageNum}) async {
+    Map<String, dynamic> params = {
+      'type': type,
+      'start': pageNum,
+    };
+    return await DataUtil.getMzituList(params);
+  }
+
+  @override
+  onCompleted(List data) {
+    //
   }
 }

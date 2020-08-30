@@ -8,4 +8,7 @@ class Api {
 
   static const String BLOG_CATEGORY = BASE_API_URL + "blog/category";
   static const String BLOG_LIST = BASE_API_URL + "blog/list";
+
+  static const String MZITU_LIST = BASE_API_URL + "mzitu/list";
+  static const String MZITU_GRID = BASE_API_URL + "mzitu/grid";
 }

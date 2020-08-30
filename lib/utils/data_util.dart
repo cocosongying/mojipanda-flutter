@@ -1,11 +1,15 @@
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mojipanda/common/storage_manager.dart';
 import 'package:mojipanda/models/app_updateInfo_model.dart';
 import 'package:mojipanda/models/blog_model.dart';
+import 'package:mojipanda/models/mzitu_model.dart';
 import 'package:mojipanda/models/tree_model.dart';
 import 'package:mojipanda/models/userinfo_model.dart';
 
 import 'net_util.dart';
 import 'package:mojipanda/api/api.dart';
+
+const String kToken = 'kToken';
 
 class DataUtil {
   static Future<UserInfoModel> login(Map<String, dynamic> params) async {
@@ -41,10 +45,28 @@ class DataUtil {
   static Future getBlogList(Map<String, dynamic> params) async {
     await Future.delayed(Duration(seconds: 1));
     var result = await NetUtil.get(Api.BLOG_LIST, params);
-    print(result);
     if (checkResult(result)) {
       return result['data']['list']
           .map<Blog>((item) => Blog.fromJsonMap(item))
+          .toList();
+    }
+  }
+
+  static Future getMzituList(Map<String, dynamic> params) async {
+    tokenParam(params);
+    var result = await NetUtil.get(Api.MZITU_LIST, params);
+    if (checkResult(result)) {
+      return result['data']['list']
+          .map<Mzitu>((item) => Mzitu.fromJsonMap(item))
+          .toList();
+    }
+  }
+
+  static Future getMzituGrid(Map<String, dynamic> params) async {
+    var result = await NetUtil.get(Api.MZITU_GRID, params);
+    if (checkResult(result)) {
+      return result['data']['list']
+          .map<Mzitu>((item) => Mzitu.fromJsonMap(item))
           .toList();
     }
   }
@@ -57,5 +79,10 @@ class DataUtil {
       FlutterToast.showToast(msg: "网络错误");
     }
     return false;
+  }
+
+  static void tokenParam(Map<String, dynamic> params) {
+    String token = StorageManager.sharedPreferences.get(kToken);
+    params['token'] = token;
   }
 }
