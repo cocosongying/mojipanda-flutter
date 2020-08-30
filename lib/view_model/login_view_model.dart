@@ -6,6 +6,7 @@ import 'package:mojipanda/utils/data_util.dart';
 import 'package:mojipanda/view_model/user_view_model.dart';
 
 const String kLoginName = 'kLoginName';
+const String kToken = 'kToken';
 
 class LoginViewModel extends ViewStateModel {
   final UserViewModel userModel;
@@ -26,6 +27,7 @@ class LoginViewModel extends ViewStateModel {
       userModel.saveUser(userInfo);
       StorageManager.sharedPreferences
           .setString(kLoginName, userModel.user.userInfo.username);
+      StorageManager.sharedPreferences.setString(kToken, userModel.user.token);
       setIdle();
       return true;
     }
