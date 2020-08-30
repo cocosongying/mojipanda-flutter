@@ -21,7 +21,6 @@ class BlogListViewModel extends ViewStateRefreshListModel<Blog> {
       'pageNum': pageNum,
       'cid': cid,
     };
-    print(params);
     return await DataUtil.getBlogList(params);
   }
 
