@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mojipanda/api/api.dart';
+import 'package:mojipanda/models/mzitu_model.dart';
+import 'package:mojipanda/view_model/mzitu_view_model.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class MzituPhotoPage extends StatefulWidget {
-  final int id;
-  MzituPhotoPage({this.id});
+  final Mzitu mzitu;
+  MzituPhotoPage({this.mzitu});
 
   @override
   _MzituPhotoPageState createState() => _MzituPhotoPageState();
@@ -11,15 +14,11 @@ class MzituPhotoPage extends StatefulWidget {
 
 class _MzituPhotoPageState extends State<MzituPhotoPage> {
   int currentIndex = 0;
-  List images = [];
+  var images = [];
   PageController controller;
   @override
   void initState() {
-    images = [
-      'https://mojipanda.com/public/download/mzitu/28b01.jpg',
-      'https://mojipanda.com/public/download/mzitu/28b56.jpg',
-      'https://mojipanda.com/public/download/mzitu/28b02.jpg'
-    ];
+    _getData();
     super.initState();
   }
 
@@ -61,7 +60,8 @@ class _MzituPhotoPageState extends State<MzituPhotoPage> {
                         ),
                     builder: (BuildContext context, int index) {
                       return PhotoViewGalleryPageOptions(
-                          imageProvider: NetworkImage(images[index]));
+                          imageProvider: NetworkImage(
+                              Api.BASE_ASSET_URL + images[index].url));
                     }),
               )),
           Positioned(
@@ -86,5 +86,13 @@ class _MzituPhotoPageState extends State<MzituPhotoPage> {
         ],
       ),
     );
+  }
+
+  void _getData() async {
+    var result = await MzituDetailViewModel().loadData(id: widget.mzitu.id);
+    setState(() {
+      images.clear();
+      images = result == null ? [] : result;
+    });
   }
 }

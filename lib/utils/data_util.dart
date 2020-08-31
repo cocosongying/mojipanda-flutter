@@ -63,6 +63,7 @@ class DataUtil {
   }
 
   static Future getMzituGrid(Map<String, dynamic> params) async {
+    tokenParam(params);
     var result = await NetUtil.get(Api.MZITU_GRID, params);
     if (checkResult(result)) {
       return result['data']['list']

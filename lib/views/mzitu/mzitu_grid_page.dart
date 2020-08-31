@@ -23,7 +23,7 @@ class _MzituGridPageState extends State<MzituGridPage>
   @override
   void initState() {
     super.initState();
-    _getDate(true);
+    _getData(true);
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -44,8 +44,7 @@ class _MzituGridPageState extends State<MzituGridPage>
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
             itemBuilder: (context, index) => MzituCard(
-                  url: '${posts[index].url}',
-                  title: '${posts[index].title}',
+                  mzitu: posts[index],
                 ),
             staggeredTileBuilder: (index) => StaggeredTile.fit(2)),
         onRefresh: _refreshData);
@@ -55,7 +54,7 @@ class _MzituGridPageState extends State<MzituGridPage>
     _page = 0;
   }
 
-  void _getDate(bool _beAdd) async {
+  void _getData(bool _beAdd) async {
     var result = await MzituListViewModel(widget.id).loadData(pageNum: _page);
     setState(() {
       if (!_beAdd) {

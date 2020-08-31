@@ -37,3 +37,13 @@ class MzituListViewModel extends ViewStateRefreshListModel<Mzitu> {
     //
   }
 }
+
+class MzituDetailViewModel extends ViewStateListModel<Mzitu> {
+  @override
+  Future<List<Mzitu>> loadData({int id}) async {
+    Map<String, dynamic> params = {
+      'id': id,
+    };
+    return await DataUtil.getMzituGrid(params);
+  }
+}

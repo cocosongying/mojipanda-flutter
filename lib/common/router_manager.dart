@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mojipanda/models/blog_model.dart';
 import 'package:mojipanda/models/card_model.dart';
+import 'package:mojipanda/models/mzitu_model.dart';
 import 'package:mojipanda/models/web_model.dart';
 import 'package:mojipanda/views/blog_detail_page.dart';
 import 'package:mojipanda/views/card/card_detail_page.dart';
@@ -89,7 +90,10 @@ class Router {
       case RouteName.mzitu:
         return CupertinoPageRoute(builder: (_) => MzituPage());
       case RouteName.mzituPhoto:
-        return CupertinoPageRoute(builder: (_) => MzituPhotoPage());
+        var mzitu = settings.arguments as Mzitu;
+        return CupertinoPageRoute(builder: (_) => MzituPhotoPage(
+          mzitu: mzitu,
+        ));
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(
