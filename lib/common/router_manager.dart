@@ -12,6 +12,7 @@ import 'package:mojipanda/views/fun/fun_list_page.dart';
 import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_photo_page.dart';
+import 'package:mojipanda/views/mzitu/mzitu_single_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
 import 'package:mojipanda/views/splash.dart';
 import 'package:mojipanda/views/tab/tab_navigator.dart';
@@ -29,6 +30,7 @@ class RouteName {
   static const String fun = 'fun';
   static const String mzitu = 'mzitu';
   static const String mzituPhoto = 'mzituPhoto';
+  static const String mzituSingle = 'mzituSingle';
   static const String blogDetail = 'blogDetail';
   static const String cardList = 'cardList';
   static const String cardDetail = 'cardDetail';
@@ -91,9 +93,16 @@ class Router {
         return CupertinoPageRoute(builder: (_) => MzituPage());
       case RouteName.mzituPhoto:
         var mzitu = settings.arguments as Mzitu;
-        return CupertinoPageRoute(builder: (_) => MzituPhotoPage(
-          mzitu: mzitu,
-        ));
+        return CupertinoPageRoute(
+            builder: (_) => MzituPhotoPage(
+                  mzitu: mzitu,
+                ));
+      case RouteName.mzituSingle:
+        var mzitu = settings.arguments as Mzitu;
+        return CupertinoPageRoute(
+            builder: (_) => MzituSinglePage(
+                  mzitu: mzitu,
+                ));
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

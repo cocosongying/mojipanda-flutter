@@ -27,7 +27,8 @@ class _MzituGridPageState extends State<MzituGridPage>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        print('我监听到底部了!');
+        // 监听到底部
+        _addMoreData();
       }
     });
   }
@@ -52,6 +53,12 @@ class _MzituGridPageState extends State<MzituGridPage>
 
   Future _refreshData() async {
     _page = 0;
+    _getData(false);
+  }
+
+  Future _addMoreData() async {
+    _page++;
+    _getData(true);
   }
 
   void _getData(bool _beAdd) async {

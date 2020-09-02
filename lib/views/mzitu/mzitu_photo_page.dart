@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mojipanda/api/api.dart';
 import 'package:mojipanda/models/mzitu_model.dart';
+import 'package:mojipanda/utils/url_util.dart';
 import 'package:mojipanda/view_model/mzitu_view_model.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -61,7 +61,7 @@ class _MzituPhotoPageState extends State<MzituPhotoPage> {
                     builder: (BuildContext context, int index) {
                       return PhotoViewGalleryPageOptions(
                           imageProvider: NetworkImage(
-                              Api.BASE_ASSET_URL + images[index].url));
+                              UrlUtil.getImgUrl(images[index].url)));
                     }),
               )),
           Positioned(
