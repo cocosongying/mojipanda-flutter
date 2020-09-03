@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/view_model/mzitu_view_model.dart';
 import 'package:mojipanda/views/mzitu/mzitu_card_widget.dart';
 
@@ -62,14 +63,21 @@ class _MzituGridPageState extends State<MzituGridPage>
   }
 
   void _getData(bool _beAdd) async {
-    var result = await MzituListViewModel(widget.id).loadData(pageNum: _page);
-    setState(() {
-      if (!_beAdd) {
-        posts.clear();
-        posts = result == null ? [] : result;
-      } else {
-        posts.addAll(result);
+    try {
+      var result = await MzituListViewModel(widget.id).loadData(pageNum: _page);
+      setState(() {
+        if (!_beAdd) {
+          posts.clear();
+          posts = result == null ? [] : result;
+        } else {
+          posts.addAll(result);
+        }
+      });
+    } on int catch (e) {
+      if (e == 10002) {
+        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed(RouteName.login);
       }
-    });
+    }
   }
 }

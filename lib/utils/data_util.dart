@@ -73,11 +73,15 @@ class DataUtil {
   }
 
   static bool checkResult(var result) {
-    if (result != null && result['code'] == 0) {
-      return true;
-    }
     if (result == null || result['code'] == null) {
       FlutterToast.showToast(msg: "网络错误");
+    } else {
+      if (result['code'] == 0) {
+        return true;
+      } else if (result['code'] == 10002) {
+        FlutterToast.showToast(msg: "令牌错误，请重新登录");
+        throw 10002;
+      }
     }
     return false;
   }
