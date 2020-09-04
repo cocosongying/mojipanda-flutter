@@ -25,5 +25,5 @@ doc/api/
 
 release-key.keystore
 android/key.properties
-
+local.properties
 .DS_Store
