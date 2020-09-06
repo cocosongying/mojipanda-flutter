@@ -77,7 +77,7 @@ class _MzituPhotoPageState extends State<MzituPhotoPage> {
               child: IconButton(
                   icon: Icon(
                     Icons.close,
-                    size: 30,
+                    size: 24,
                     color: Colors.white,
                   ),
                   onPressed: () {
