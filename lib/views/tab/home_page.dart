@@ -3,6 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:mojipanda/common/resource_mananger.dart';
 import 'package:mojipanda/common/router_manager.dart';
+import 'package:mojipanda/main.dart';
 import 'package:mojipanda/widgets/banner_image.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
@@ -109,7 +110,8 @@ class _HomePageState extends State<HomePage>
           SpeedDialChild(
               child: Icon(Icons.videocam),
               backgroundColor: Colors.green,
-              onTap: () {
+              onTap: () async {
+                await App.showSimple();
                 showToast('Button 3');
               }),
         ],

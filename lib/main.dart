@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mojipanda/common/provider_manager.dart';
 import 'package:mojipanda/common/router_manager.dart';
@@ -11,7 +12,22 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/logo');
+  var initializationSettingsIOS = IOSInitializationSettings();
+  var initializationSettings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    // TODO 点击通知事件
+  });
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
@@ -77,5 +93,15 @@ class App extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static Future showSimple() async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'channelId', 'channelName', 'channelDescription');
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    flutterLocalNotificationsPlugin
+        .show(0, 'title', 'body', platformChannelSpecifics, payload: 'hello');
   }
 }
