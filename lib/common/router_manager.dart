@@ -4,7 +4,7 @@ import 'package:mojipanda/models/blog_model.dart';
 import 'package:mojipanda/models/card_model.dart';
 import 'package:mojipanda/models/mzitu_model.dart';
 import 'package:mojipanda/models/web_model.dart';
-import 'package:mojipanda/views/blog_detail_page.dart';
+import 'package:mojipanda/views/blog/blog_detail_page.dart';
 import 'package:mojipanda/views/card/card_detail_page.dart';
 import 'package:mojipanda/views/card/card_edit_page.dart';
 import 'package:mojipanda/views/card/card_list_page.dart';

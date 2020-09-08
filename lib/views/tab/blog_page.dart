@@ -6,7 +6,7 @@ import 'package:mojipanda/provider/view_state_list_model.dart';
 import 'package:mojipanda/provider/view_state_widget.dart';
 import 'package:mojipanda/utils/status_bar_util.dart';
 import 'package:mojipanda/view_model/blog_view_model.dart';
-import 'package:mojipanda/views/blog_list_page.dart';
+import 'package:mojipanda/views/blog/blog_list_page.dart';
 import 'package:provider/provider.dart';
 
 class BlogPage extends StatefulWidget {
