@@ -1,4 +1,5 @@
 class Api {
+  static const String WEBSOCKET_URL = 'ws://192.168.3.87:5001';
   static const String BASE_URL = 'https://mojipanda.com/';
   static const String BASE_API_URL = BASE_URL + 'api/';
   static const String BASE_ASSET_URL = BASE_URL + 'public/download/';

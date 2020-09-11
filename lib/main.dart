@@ -1,3 +1,4 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -5,6 +6,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mojipanda/common/provider_manager.dart';
 import 'package:mojipanda/common/router_manager.dart';
 import 'package:mojipanda/common/storage_manager.dart';
+import 'package:mojipanda/common/websocket_manager.dart';
+import 'package:mojipanda/event/event_bus.dart';
+import 'package:mojipanda/event/event_model.dart';
 import 'package:mojipanda/generated/l10n.dart';
 import 'package:mojipanda/view_model/locale_view_model.dart';
 import 'package:mojipanda/view_model/theme_view_model.dart';
@@ -31,6 +35,7 @@ void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
+  WebSocketManager().init();
   runApp(App());
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -41,8 +46,16 @@ void main() async {
 }
 
 class App extends StatelessWidget {
+  App() {
+    final eventBus = EventBus();
+    ApplicationEvent.event = eventBus;
+  }
   @override
   Widget build(BuildContext context) {
+    ApplicationEvent.event.on<HelloEvent>().listen((event) {
+      print(event.msg);
+      showToast(event.msg);
+    });
     return OKToast(
       child: MultiProvider(
         providers: providers,
