@@ -37,6 +37,8 @@ class WebSocketManager {
 
   void onDone() {
     print('websocket断开了');
+    channel = IOWebSocketChannel.connect(Api.WEBSOCKET_URL + "?token=abcd1234");
+    print('websocket重连了');
   }
 
   void closeWebSocket(){//关闭链接
