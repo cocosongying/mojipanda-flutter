@@ -21,10 +21,11 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/logo');
+  var initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/logo');
   var initializationSettingsIOS = IOSInitializationSettings();
   var initializationSettings = InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
+      initializationSettingsAndroid, initializationSettingsIOS);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onSelectNotification: (String payload) async {
     if (payload != null) {
@@ -35,7 +36,7 @@ void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
-  WebSocketManager().init();
+  WebSocketManager.create();
   runApp(App());
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -52,9 +53,9 @@ class App extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    ApplicationEvent.event.on<HelloEvent>().listen((event) {
+    ApplicationEvent.event.on<MsgEvent>().listen((event) {
       print(event.msg);
-      showToast(event.msg);
+      showSimple(0, '磨', event.msg);
     });
     return OKToast(
       child: MultiProvider(
@@ -108,13 +109,13 @@ class App extends StatelessWidget {
     );
   }
 
-  static Future showSimple() async {
+  static Future showSimple(int id, String title, String body) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'channelId', 'channelName', 'channelDescription');
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     flutterLocalNotificationsPlugin
-        .show(0, 'title', 'body', platformChannelSpecifics, payload: 'hello');
+        .show(id, title, body, platformChannelSpecifics, payload: 'hello');
   }
 }

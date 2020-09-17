@@ -13,6 +13,7 @@ import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_photo_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_single_page.dart';
+import 'package:mojipanda/views/play/rps_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
 import 'package:mojipanda/views/splash.dart';
 import 'package:mojipanda/views/tab/tab_navigator.dart';
@@ -35,6 +36,8 @@ class RouteName {
   static const String cardList = 'cardList';
   static const String cardDetail = 'cardDetail';
   static const String cardEdit = 'cardEdit';
+
+  static const String rps = 'rps';
 }
 
 class Router {
@@ -103,6 +106,8 @@ class Router {
             builder: (_) => MzituSinglePage(
                   mzitu: mzitu,
                 ));
+      case RouteName.rps:
+        return CupertinoPageRoute(builder: (_) => RPSPage());
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

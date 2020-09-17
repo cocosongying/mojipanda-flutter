@@ -1,48 +1,33 @@
+import 'dart:convert';
+
 import 'package:mojipanda/api/api.dart';
+import 'package:mojipanda/common/storage_manager.dart';
 import 'package:mojipanda/event/event_bus.dart';
 import 'package:mojipanda/event/event_model.dart';
 import 'package:web_socket_channel/io.dart';
 
 class WebSocketManager {
-
-  WebSocketManager._();
-  static WebSocketManager _manager;
-  IOWebSocketChannel channel;
-
-  factory WebSocketManager() {
-    if (_manager == null) {
-      _manager = WebSocketManager._();
-    }
-    return _manager;
+  static IOWebSocketChannel channel;
+  WebSocketManager.create() {
+    var token = StorageManager.sharedPreferences.get('kToken') ?? '';
+    channel = IOWebSocketChannel.connect(Api.WEBSOCKET_URL + "?token=$token");
+    channel.stream.listen((message) {
+      print(message);
+      try {
+        var data = json.decode(message);
+        var type = data[0];
+        switch (type) {
+          case 1:
+            ApplicationEvent.event.fire(MsgEvent("收到" + message));
+            break;
+          default:
+            ApplicationEvent.event.fire(HelloEvent("收到" + message));
+        }
+      } catch (e) {}
+    });
   }
-  
-  void init() {
-    channel = IOWebSocketChannel.connect(Api.WEBSOCKET_URL + "?token=abcd1234");
-    channel.sink.add('hello');
-    channel.stream.listen((data) => listenMessage(data), onError: onError, onDone: onDone);
-  }
 
-  void sendMessage(data) {
+  WebSocketManager.sendMessage(data) {
     channel.sink.add(data);
-  }
-
-  void listenMessage(data) {
-    print(data);
-    ApplicationEvent.event.fire(HelloEvent("收到" + data));
-  }
-
-  void onError(error) {
-    print(error);
-  }
-
-  void onDone() {
-    print('websocket断开了');
-    channel = IOWebSocketChannel.connect(Api.WEBSOCKET_URL + "?token=abcd1234");
-    print('websocket重连了');
-  }
-
-  void closeWebSocket(){//关闭链接
-    channel.sink.close();
-    print('关闭了websocket');
   }
 }

@@ -37,9 +37,12 @@ class _HomePageState extends State<HomePage>
         '娱乐', '小游戏', RouteName.fun, '磨叽熊猫', Constant.jumpTypePage);
     HomeCardModel card3 = new HomeCardModel('阅读', '唐诗，宋词，三字经。。。',
         "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypeWeb);
+    HomeCardModel card4 = new HomeCardModel(
+        '猜拳', '石头剪刀布', RouteName.rps, '磨叽熊猫', Constant.jumpTypePage);
     homeCardList.add(card1);
     homeCardList.add(card2);
     homeCardList.add(card3);
+    homeCardList.add(card4);
 
     super.initState();
   }
@@ -111,7 +114,7 @@ class _HomePageState extends State<HomePage>
               child: Icon(Icons.videocam),
               backgroundColor: Colors.green,
               onTap: () async {
-                await App.showSimple();
+                await App.showSimple(1, 'qqq', '1234567890');
                 showToast('Button 3');
               }),
         ],
