@@ -6,4 +6,6 @@ class Constant {
 
   static const int jumpTypePage = 0;
   static const int jumpTypeWeb = 1;
+
+  static const String ASSETS_IMG = 'assets/images/';
 }

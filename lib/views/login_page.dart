@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mojipanda/common/storage_manager.dart';
 import 'package:mojipanda/generated/l10n.dart';
 import 'package:mojipanda/provider/provider_widget.dart';
 import 'package:mojipanda/view_model/login_view_model.dart';
@@ -30,6 +31,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final keyHeight = MediaQuery.of(context).viewInsets.bottom;
+    if (keyHeight != 0) {
+      StorageManager.localStorage.setItem("kHeight", keyHeight);
+    }
     return Scaffold(
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),

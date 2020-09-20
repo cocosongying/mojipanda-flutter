@@ -8,6 +8,7 @@ import 'package:mojipanda/views/blog/blog_detail_page.dart';
 import 'package:mojipanda/views/card/card_detail_page.dart';
 import 'package:mojipanda/views/card/card_edit_page.dart';
 import 'package:mojipanda/views/card/card_list_page.dart';
+import 'package:mojipanda/views/chat/chat_detail_page.dart';
 import 'package:mojipanda/views/fun/fun_list_page.dart';
 import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_page.dart';
@@ -38,6 +39,8 @@ class RouteName {
   static const String cardEdit = 'cardEdit';
 
   static const String rps = 'rps';
+
+  static const String chatDetail = 'chatDetail';
 }
 
 class Router {
@@ -108,6 +111,8 @@ class Router {
                 ));
       case RouteName.rps:
         return CupertinoPageRoute(builder: (_) => RPSPage());
+      case RouteName.chatDetail:
+        return CupertinoPageRoute(builder: (_) => ChatDetailPage());
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(
