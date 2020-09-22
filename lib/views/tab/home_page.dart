@@ -39,10 +39,13 @@ class _HomePageState extends State<HomePage>
         "https://mojipanda.com", '磨叽熊猫', Constant.jumpTypeWeb);
     HomeCardModel card4 = new HomeCardModel(
         '猜拳', '石头剪刀布', RouteName.rps, '磨叽熊猫', Constant.jumpTypePage);
+    HomeCardModel card5 = new HomeCardModel(
+        '小说', '小说书城', RouteName.novel, '磨叽熊猫', Constant.jumpTypePage);
     homeCardList.add(card1);
     homeCardList.add(card2);
     homeCardList.add(card3);
     homeCardList.add(card4);
+    homeCardList.add(card5);
 
     super.initState();
   }

@@ -14,6 +14,9 @@ import 'package:mojipanda/views/login_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_photo_page.dart';
 import 'package:mojipanda/views/mzitu/mzitu_single_page.dart';
+import 'package:mojipanda/views/novel/novel_detail_page.dart';
+import 'package:mojipanda/views/novel/novel_list_page.dart';
+import 'package:mojipanda/views/novel/novel_reader_page.dart';
 import 'package:mojipanda/views/play/rps_page.dart';
 import 'package:mojipanda/views/setting_page.dart';
 import 'package:mojipanda/views/splash.dart';
@@ -39,6 +42,9 @@ class RouteName {
   static const String cardEdit = 'cardEdit';
 
   static const String rps = 'rps';
+  static const String novel = 'novel';
+  static const String novelDetail = 'novelDetail';
+  static const String novelReader = 'novelReader';
 
   static const String chatDetail = 'chatDetail';
 }
@@ -111,6 +117,13 @@ class Router {
                 ));
       case RouteName.rps:
         return CupertinoPageRoute(builder: (_) => RPSPage());
+      case RouteName.novel:
+        return CupertinoPageRoute(builder: (_) => NovelListPage());
+      case RouteName.novelDetail:
+        return CupertinoPageRoute(
+            builder: (_) => NovelDetailPage(settings.arguments));
+      case RouteName.novelReader:
+        return CupertinoPageRoute(builder: (_) => NovelReaderPage());
       case RouteName.chatDetail:
         return CupertinoPageRoute(builder: (_) => ChatDetailPage());
       default:
