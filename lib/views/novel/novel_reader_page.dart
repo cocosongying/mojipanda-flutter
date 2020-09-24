@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mojipanda/common/common.dart';
 import 'package:mojipanda/models/chapter_model.dart';
 
 class NovelReaderPage extends StatefulWidget {
@@ -189,41 +190,22 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
           ),
         ),
         Expanded(child: SizedBox()),
-        // Container(
-        //   margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-        //   width: _sImagePadding * 2,
-        //   height: _sImagePadding * 2,
-        //   child: AnimatedPadding(
-        //     duration: Duration(milliseconds: _duration),
-        //     padding: EdgeInsets.fromLTRB(
-        //         _imagePadding, _imagePadding, _imagePadding, _imagePadding),
-        //     child: InkWell(
-        //       onTap: () {
-        //         setState(() {
-        //           _isNighttime = !_isNighttime;
-        //         });
-        //       },
-        //       child: Icon(
-        //         _isNighttime ? Icons.access_alarm : Icons.monochrome_photos,
-        //       ),
-        //     ),
-        //   ),
-        // ),
         SizedBox(
           height: 20,
         ),
         AnimatedContainer(
           height: _bottomHeight,
           duration: Duration(milliseconds: _duration),
-          // child: AnimatedPadding(
-            // duration: Duration(milliseconds: _duration),
-            padding: EdgeInsets.fromLTRB(0, _bottomPadding, 0, 0),
-            child: Container(
-              height: _bottomHeight,
-              padding: EdgeInsets.fromLTRB(15, 20, 15, 15),
-              child: SingleChildScrollView(
-                child: Column(
+          padding: EdgeInsets.fromLTRB(0, _bottomPadding, 0, 0),
+          child: Container(
+            height: _bottomHeight,
+            padding: EdgeInsets.fromLTRB(15, 20, 15, 15),
+            child: SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
+                  SizedBox(
+                    height: 44,
+                  ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -327,9 +309,9 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
                   ),
                 ],
               ),
-              ),
             ),
           ),
+        ),
         // ),
       ],
     );
@@ -343,6 +325,13 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
       body: WillPopScope(
         child: Stack(
           children: <Widget>[
+            Positioned(
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 0,
+                child: Image.asset(Constant.ASSETS_IMG + 'read_bg.png',
+                    fit: BoxFit.cover)),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -357,7 +346,6 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
                       ? _addBookshelfPadding = _addBookshelfWidth
                       : _addBookshelfPadding = 0;
                 });
-                // _scaffoldKey.currentState.openDrawer();
               },
               child: SingleChildScrollView(
                 controller: _controller,
@@ -374,7 +362,18 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
                     SizedBox(
                       height: 16,
                     ),
-                    Text('content------------'),
+                    // Text('content------------'),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                              style: TextStyle(fontSize: 25),
+                              text:
+                                  'content=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjhcontent=-----=adhjadah\n\ngjh\ngad\njhscg\najhgdcjag\ndasdsadadjh'),
+                        ],
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
                     SizedBox(
                       height: 12,
                     ),
