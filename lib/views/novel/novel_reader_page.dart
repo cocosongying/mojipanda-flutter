@@ -21,8 +21,6 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
   int _duration = 200;
   double _spaceValue = 1.8;
   double _textSizeValue = 18;
-  bool _isNighttime = false;
-  bool _isAddBookshelf = false;
   ScrollController _controller;
 
   @override
