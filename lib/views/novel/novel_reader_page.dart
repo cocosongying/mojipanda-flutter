@@ -11,13 +11,11 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
   List<Chapter> chapters = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var _lastPressed;
-  static final double _addBookshelfWidth = 95;
   static final double _bottomHeight = 200;
   static final double _sImagePadding = 20;
   double _height = 0;
   double _bottomPadding = _bottomHeight;
   double _imagePadding = _sImagePadding;
-  double _addBookshelfPadding = _addBookshelfWidth;
   int _duration = 200;
   double _spaceValue = 1.8;
   double _textSizeValue = 18;
@@ -138,7 +136,6 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
       _bottomPadding = _bottomHeight;
       _height = 0;
       _imagePadding = _sImagePadding;
-      _addBookshelfPadding = _addBookshelfWidth;
     });
   }
 
@@ -340,9 +337,6 @@ class _NovelReaderPageState extends State<NovelReaderPage> with RouteAware {
                   _imagePadding == 0
                       ? _imagePadding = _sImagePadding
                       : _imagePadding = 0;
-                  _addBookshelfPadding == 0
-                      ? _addBookshelfPadding = _addBookshelfWidth
-                      : _addBookshelfPadding = 0;
                 });
               },
               child: SingleChildScrollView(
