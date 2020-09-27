@@ -19,7 +19,6 @@ class _RPSPageState extends State<RPSPage> {
     super.initState();
     rpsEvent = ApplicationEvent.event.on<HelloEvent>().listen((event) {
       print('rps' + event.msg);
-      showToast(event.msg);
     });
     WebSocketManager.sendMessage('[1,[0]]');
   }
