@@ -9,3 +9,8 @@ class Constant {
 
   static const String ASSETS_IMG = 'assets/images/';
 }
+
+class JumpType {
+  static const int page = 0;
+  static const int web = 1;
+}
