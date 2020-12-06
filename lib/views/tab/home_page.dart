@@ -43,9 +43,9 @@ class _HomePageState extends State<HomePage>
         '小说', '小说书城', RouteName.novel, '磨叽熊猫', Constant.jumpTypePage);
     homeCardList.add(card1);
     homeCardList.add(card2);
-    homeCardList.add(card3);
-    homeCardList.add(card4);
-    homeCardList.add(card5);
+    // homeCardList.add(card3);
+    // homeCardList.add(card4);
+    // homeCardList.add(card5);
 
     super.initState();
   }

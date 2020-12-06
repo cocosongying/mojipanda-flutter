@@ -36,7 +36,7 @@ void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
-  WebSocketManager.create();
+  // WebSocketManager.create();
   runApp(App());
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

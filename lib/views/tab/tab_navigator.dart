@@ -10,7 +10,7 @@ import 'package:oktoast/oktoast.dart';
 List<Widget> pages = <Widget>[
   HomePage(),
   BlogPage(),
-  ChatPage(),
+  // ChatPage(),
   UserPage(),
 ];
 
@@ -69,10 +69,10 @@ class _TabNavigatorState extends State<TabNavigator> {
             Icons.book,
             color: Theme.of(context).accentColor,
           ),
-          Icon(
-            Icons.chat,
-            color: Theme.of(context).accentColor,
-          ),
+          // Icon(
+          //   Icons.chat,
+          //   color: Theme.of(context).accentColor,
+          // ),
           Icon(
             Icons.account_box,
             color: Theme.of(context).accentColor,
